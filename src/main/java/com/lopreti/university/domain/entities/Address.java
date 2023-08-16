@@ -14,6 +14,8 @@ public class Address {
 
     private String zipCode;
 
+    private String country;
+
     private User user;
 
 }
