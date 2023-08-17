@@ -1,37 +1,31 @@
 package com.lopreti.university.domain.valueObjects;
 
+import jakarta.persistence.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Embeddable
 public class Password {
 
-    private String value;
+    private String password;
 
-    public static final Pattern VALID_PASSWORD_REGEX =
-            Pattern.compile("^(?=.*[0-9])(?=.*[az])(?=.*[AZ])(?=.*[@#$%^&-+=() ])(?=\\\\S+$).{8, 20}$",
-                    Pattern.CASE_INSENSITIVE);
-
-    // TODO DOCUMENT
-    //    Ele contém no mínimo 8 caracteres e no máximo 20 caracteres.
-    //    Contém pelo menos um dígito.
-    //    Contém pelo menos um alfabeto maiúsculo.
-    //    Contém pelo menos um alfabeto minúsculo.
-    //    Ele contém pelo menos um caractere especial que inclui !@#$%&*()-+=^ .
-    //    Não contém nenhum espaço em branco.
+    private static final Pattern VALID_PASSWORD_REGEX =
+            Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=()\\-])(?=\\S+$).{8,20}$");
 
     public Password() {
     }
 
-    public Password(String value) {
-        this.value = value != null ? value : "";
-        Matcher matcher = VALID_PASSWORD_REGEX.matcher(value);
+    public Password(String password) {
+        this.password = password != null ? password : "";
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(password);
         if (!matcher.find()) {
             //TODO THROW NEW INVALID PASSWORD EXCEPTION
         }
     }
 
-    public String getValue() {
-        return value;
+    public String getPassword() {
+        return password;
     }
 
 }
