@@ -27,4 +27,11 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.ACTIVE;
 
+    public Users(Long id, Email email, Password password, UserStatus status) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.status = status;
+    }
+
 }

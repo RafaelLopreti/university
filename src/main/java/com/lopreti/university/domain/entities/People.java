@@ -26,4 +26,15 @@ public class People {
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
+    public People() {
+    }
+
+    public People(Long id, Users users, String name, String taxpayerRegistry, Address address) {
+        this.id = id;
+        this.users = users;
+        this.name = name;
+        this.taxpayerRegistry = taxpayerRegistry;
+        this.address = address;
+    }
+
 }

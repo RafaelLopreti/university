@@ -1,6 +1,6 @@
 package com.lopreti.university.domain.valueObjects;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
