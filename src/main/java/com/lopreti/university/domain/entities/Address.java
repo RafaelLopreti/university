@@ -38,4 +38,13 @@ public class Address {
     @JoinColumn(name = "user_id", nullable = false)
     private Users users;
 
+    public Address(Long id, String street, String number, String city, String neighborhood, String zipCode, String country) {
+        this.id = id;
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.neighborhood = neighborhood;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
 }

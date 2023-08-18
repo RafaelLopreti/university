@@ -18,4 +18,16 @@ public class StudentRepositoryImpl implements StudentRepository {
         return studentJpaRepository.findByClass(classCode);
     }
 
+    public List<Student> findAll() {
+        return studentJpaRepository.findAll();
+    }
+
+    public Student findById(Long id) {
+        return studentJpaRepository.findById(id).orElseThrow(); //TODO STUDENT NOT FOUND
+    }
+
+    public Student save(Student student) {
+        return studentJpaRepository.save(student);
+    }
+
 }
