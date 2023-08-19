@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Teacher extends People {
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "people_id", nullable = false)
+    private People people;
+
     @ManyToMany
     @JoinColumn(name = "class_code", nullable = false)
     private List<Class> classList = new ArrayList<>();
-
-    @Enumerated(EnumType.STRING)
-    private final PeopleCategory category = PeopleCategory.TEACHER;
 
 }

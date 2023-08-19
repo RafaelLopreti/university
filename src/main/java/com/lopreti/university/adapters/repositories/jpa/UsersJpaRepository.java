@@ -1,4 +1,4 @@
-package com.lopreti.university.adapters.db.user;
+package com.lopreti.university.adapters.repositories.jpa;
 
 import com.lopreti.university.domain.entities.Users;
 import com.lopreti.university.domain.valueObjects.Email;

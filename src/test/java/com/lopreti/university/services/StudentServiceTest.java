@@ -1,7 +1,6 @@
 package com.lopreti.university.services;
 
-import com.lopreti.university.adapters.db.student.StudentJpaRepository;
-import com.lopreti.university.adapters.db.student.StudentRepositoryImpl;
+import com.lopreti.university.adapters.repositories.impl.StudentRepositoryImpl;
 import com.lopreti.university.domain.entities.Address;
 import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.entities.Student;
@@ -30,9 +29,6 @@ public class StudentServiceTest {
     private StudentService studentService;
 
     @Mock
-    private StudentJpaRepository studentJpaRepository;
-
-    @Mock
     private StudentRepositoryImpl studentRepositoryImpl;
 
     @Test
@@ -45,7 +41,7 @@ public class StudentServiceTest {
                         new Users(1L, new Email("test@example.com"), new Password("Abc@1234"), UserStatus.ACTIVE),
                             "Find All Student", "111.222.333-44", new Address(1L,
                             "Street", "Number", "City", "Neighborhood",
-                            "ZipCode", "Country"
+                            12345678L, "Country"
                         )
                     )
                 )

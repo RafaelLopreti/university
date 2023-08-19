@@ -1,0 +1,10 @@
+-- Insert User
+INSERT INTO USERS (EMAIL, PASSWORD, STATUS) VALUES ('rafael.lopreti@gmail.com', 'Abc@1234', 'ACTIVE');
+
+-- Insert Address
+INSERT INTO ADDRESS (USER_ID, CITY, COUNTRY, NEIGHBORHOOD, NUMBER, STREET, ZIP_CODE)
+VALUES (1, 'SP', 'Brazil', 'Default Neighborhood', '123', 'Default Street', '12345678');
+
+-- Insert People
+INSERT INTO PEOPLE (ADDRESS_ID, USER_ID, NAME, TAXPAYER_REGISTRY, CATEGORY)
+VALUES (1, 1, 'Rafael Lopreti', '111.222.333-44', 'STUDENT');

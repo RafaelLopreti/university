@@ -1,5 +1,6 @@
 package com.lopreti.university.domain.entities;
 
+import com.lopreti.university.domain.valueObjects.PeopleCategory;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -8,23 +9,26 @@ public class People {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+    public Users users;
 
     @Column
     @NotBlank(message = "Name cannot be empty")
-    private String name;
+    public String name;
 
     @Column
     @NotBlank(message = "Taxpayer Registry cannot be empty")
-    private String taxpayerRegistry;
+    public String taxpayerRegistry;
 
     @OneToOne
     @JoinColumn(name = "address_id", nullable = false)
-    private Address address;
+    public Address address;
+
+    @Enumerated(EnumType.STRING)
+    private PeopleCategory category;
 
     public People() {
     }
@@ -37,4 +41,27 @@ public class People {
         this.address = address;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTaxpayerRegistry(String taxpayerRegistry) {
+        this.taxpayerRegistry = taxpayerRegistry;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setCategory(PeopleCategory category) {
+        this.category = category;
+    }
 }

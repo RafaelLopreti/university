@@ -1,5 +1,6 @@
-package com.lopreti.university.adapters.db.people;
+package com.lopreti.university.adapters.repositories.impl;
 
+import com.lopreti.university.adapters.repositories.jpa.PeopleJpaRepository;
 import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.ports.repositories.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

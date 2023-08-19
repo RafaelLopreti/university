@@ -28,7 +28,7 @@ public class Address {
 
     @Column
     @NotBlank(message = "ZipCode cannot be empty")
-    private String zipCode;
+    private Long zipCode;
 
     @Column
     @NotBlank(message = "Country cannot be empty")
@@ -38,7 +38,9 @@ public class Address {
     @JoinColumn(name = "user_id", nullable = false)
     private Users users;
 
-    public Address(Long id, String street, String number, String city, String neighborhood, String zipCode, String country) {
+    public Address() {}
+
+    public Address(Long id, String street, String number, String city, String neighborhood, Long zipCode, String country) {
         this.id = id;
         this.street = street;
         this.number = number;

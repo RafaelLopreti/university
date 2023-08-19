@@ -1,4 +1,4 @@
-package com.lopreti.university.adapters.db.subjects;
+package com.lopreti.university.adapters.repositories.jpa;
 
 import com.lopreti.university.domain.entities.Subjects;
 import org.springframework.data.jpa.repository.JpaRepository;

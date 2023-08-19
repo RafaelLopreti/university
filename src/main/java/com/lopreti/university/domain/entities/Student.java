@@ -4,7 +4,7 @@ import com.lopreti.university.domain.valueObjects.PeopleCategory;
 import jakarta.persistence.*;
 
 @Entity
-public class Student extends People {
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +17,35 @@ public class Student extends People {
     @JoinColumn(name = "people_id", nullable = false)
     private People people;
 
-    @Enumerated(EnumType.STRING)
-    private final PeopleCategory category = PeopleCategory.STUDENT;
-
     public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
 
+    public Student() {}
+
     public Student(Long id, String classCode, People people) {
         this.id = id;
         this.classCode = classCode;
+        this.people = people;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getClassCode() {
+        return classCode;
+    }
+
+    public People getPeople() {
+        return people;
+    }
+
+    public void setPeople(People people) {
         this.people = people;
     }
 

@@ -1,4 +1,4 @@
-package com.lopreti.university.adapters.db.address;
+package com.lopreti.university.adapters.repositories.jpa;
 
 import com.lopreti.university.domain.entities.Address;
 import org.springframework.data.jpa.repository.JpaRepository;

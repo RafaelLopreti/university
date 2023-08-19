@@ -1,8 +1,8 @@
 package com.lopreti.university.domain.services;
 
-import com.lopreti.university.adapters.db.student.StudentRepositoryImpl;
+import com.lopreti.university.adapters.repositories.impl.StudentRepositoryImpl;
 import com.lopreti.university.domain.entities.Student;
-import org.springframework.http.ResponseEntity;
+import com.lopreti.university.domain.exception.StudentAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,17 +29,20 @@ public class StudentService {
     }
 
     public Student save(Student student) {
-        return studentRepository.save(student);
+        if (!existsById(student.getId())) {
+            return studentRepository.save(student);
+        }
+        throw new StudentAlreadyExistsException();
     }
 
-    public Student update(Long id, String classCode){
+    public Student update(Long id, String classCode) {
         Student student = findById(id);
         student.setClassCode(classCode); // TODO VALID EXIST CLASSCODE
         return save(student);
     }
 
     public boolean existsById(Long id) {
-        return studentRepository.existsById(id); //TODO STUDENT NOT FOUND
+        return studentRepository.existsById(id);
     }
 
 }

@@ -1,6 +1,8 @@
-package com.lopreti.university.adapters.db.student;
+package com.lopreti.university.adapters.repositories.impl;
 
+import com.lopreti.university.adapters.repositories.jpa.StudentJpaRepository;
 import com.lopreti.university.domain.entities.Student;
+import com.lopreti.university.domain.exception.StudentNotFoundException;
 import com.lopreti.university.domain.ports.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +25,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     public Student findById(Long id) {
-        return studentJpaRepository.findById(id).orElseThrow(); //TODO STUDENT NOT FOUND
+        return studentJpaRepository.findById(id).orElseThrow(StudentNotFoundException::new);
     }
 
     public Student save(Student student) {

@@ -1,4 +1,4 @@
-package com.lopreti.university.adapters.db.teacher;
+package com.lopreti.university.adapters.repositories.jpa;
 
 import com.lopreti.university.domain.entities.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;

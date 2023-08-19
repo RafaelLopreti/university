@@ -1,5 +1,6 @@
-package com.lopreti.university.adapters.db.subjects;
+package com.lopreti.university.adapters.repositories.impl;
 
+import com.lopreti.university.adapters.repositories.jpa.SubjectsJpaRepository;
 import com.lopreti.university.domain.entities.Subjects;
 import com.lopreti.university.domain.ports.repositories.SubjectsRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.lopreti.university.adapters.db.course;
+package com.lopreti.university.adapters.repositories.jpa;
 
 import com.lopreti.university.domain.entities.Course;
 import com.lopreti.university.domain.valueObjects.Period;
