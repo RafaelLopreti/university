@@ -2,6 +2,7 @@ package com.lopreti.university.domain.services;
 
 import com.lopreti.university.adapters.db.student.StudentRepositoryImpl;
 import com.lopreti.university.domain.entities.Student;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    private Student findById(Long id) {
+    public Student findById(Long id) {
         return studentRepository.findById(id);
     }
 
@@ -37,5 +38,8 @@ public class StudentService {
         return save(student);
     }
 
+    public boolean existsById(Long id) {
+        return studentRepository.existsById(id); //TODO STUDENT NOT FOUND
+    }
 
 }

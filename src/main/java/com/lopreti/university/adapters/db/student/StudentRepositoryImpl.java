@@ -30,4 +30,8 @@ public class StudentRepositoryImpl implements StudentRepository {
         return studentJpaRepository.save(student);
     }
 
+    public boolean existsById(Long id) {
+        return studentJpaRepository.existsById(id);
+    }
+
 }
