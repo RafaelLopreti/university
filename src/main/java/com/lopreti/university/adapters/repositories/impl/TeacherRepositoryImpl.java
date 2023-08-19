@@ -1,5 +1,6 @@
-package com.lopreti.university.adapters.db.teacher;
+package com.lopreti.university.adapters.repositories.impl;
 
+import com.lopreti.university.adapters.repositories.jpa.TeacherJpaRepository;
 import com.lopreti.university.domain.entities.Teacher;
 import com.lopreti.university.domain.ports.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;

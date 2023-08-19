@@ -1,5 +1,6 @@
-package com.lopreti.university.adapters.db.address;
+package com.lopreti.university.adapters.repositories.impl;
 
+import com.lopreti.university.adapters.repositories.jpa.AddressJpaRepository;
 import com.lopreti.university.domain.entities.Address;
 import com.lopreti.university.domain.ports.repositories.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -31,21 +31,21 @@ public class StudentController {
         return this.studentService.findById(id);
     }
 
-    @GetMapping("/students/{classClode}")
-    public List<Student> getByClass(@PathVariable String classCode) {
+    @GetMapping("/students-class/{classClode}")
+    public List<Student> getByClass(@PathVariable("classClode") String classCode) {
         return this.studentService.findByClass(classCode);
     }
 
     @PostMapping("/students")
     public ResponseEntity save(@Valid @RequestBody Student student) {
         this.studentService.save(student);
-        return new ResponseEntity("Student created!", HttpStatus.CREATED);
+        return new ResponseEntity("Student created.", HttpStatus.CREATED);
     }
 
     @PatchMapping("/students/{id}/{classCode}")
-    public ResponseEntity<Student> updateClass(@PathVariable Long id, String classCode) {
+    public ResponseEntity updateClass(@PathVariable("id") Long id, @PathVariable("classCode") String classCode) {
         this.studentService.update(id, classCode);
-        return new ResponseEntity("Student class code update!", HttpStatus.OK);
+        return new ResponseEntity("Student class code updated.", HttpStatus.OK);
     }
 
 }

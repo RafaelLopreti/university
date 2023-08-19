@@ -1,4 +1,4 @@
-package com.lopreti.university.adapters.db.people;
+package com.lopreti.university.adapters.repositories.jpa;
 
 import com.lopreti.university.domain.entities.People;
 import org.springframework.data.jpa.repository.JpaRepository;
