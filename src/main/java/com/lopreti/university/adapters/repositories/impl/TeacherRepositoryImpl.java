@@ -19,4 +19,20 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         return teacherJpaRepository.findByClass(classCode);
     }
 
+    public Teacher findById(Long id) {
+        return teacherJpaRepository.findById(id).orElseThrow(); // TODO TEACHER NOT FOUND
+    }
+
+    public List<Teacher> findAll() {
+        return teacherJpaRepository.findAll();
+    }
+
+    public Teacher save(Teacher teacher) {
+        return teacherJpaRepository.save(teacher);
+    }
+
+    public boolean existsById(Long id) {
+        return teacherJpaRepository.existsById(id);
+    }
+
 }
