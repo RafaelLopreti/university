@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TeacherJpaRepository extends JpaRepository<Teacher, Long> {
 
-    @Query(value = "SELECT * FROM Teacher WHERE class = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Teacher WHERE class_code = ?1", nativeQuery = true)
     List<Teacher> findByClass(String classCode);
 
 }

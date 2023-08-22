@@ -1,7 +1,10 @@
 package com.lopreti.university.domain.services;
 
+import com.lopreti.university.adapters.repositories.impl.ClassRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.TeacherRepositoryImpl;
 import com.lopreti.university.domain.entities.Teacher;
+import com.lopreti.university.domain.exception.ClassNotFoundException;
+import com.lopreti.university.domain.exception.TeacherAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +14,11 @@ public class TeacherService {
 
     private final TeacherRepositoryImpl teacherRepository;
 
-    public TeacherService(TeacherRepositoryImpl teacherRepository) {
+    private final ClassRepositoryImpl classRepository;
+
+    public TeacherService(TeacherRepositoryImpl teacherRepository, ClassRepositoryImpl classRepository) {
         this.teacherRepository = teacherRepository;
+        this.classRepository = classRepository;
     }
 
     public Teacher findById(Long id) {
@@ -31,13 +37,18 @@ public class TeacherService {
         if (!existsById(teacher.getId())) {
             return teacherRepository.save(teacher);
         }
-        return null; // TODO TEACHER EXCEPTION
+        throw new TeacherAlreadyExistsException();
     }
 
     public Teacher update(Long id, String classCode) {
         Teacher teacher = findById(id);
-        teacher.setClassList(classCode); // TODO VALID EXIST CLASSCODE
-        return save(teacher);
+
+        if (classRepository.existsByCode(classCode).isPresent()) {
+            teacher.setClassList(classCode);
+            return teacherRepository.save(teacher);
+        } // TODO CALL CLASS SERVICE
+
+        throw new ClassNotFoundException();
     }
 
     public boolean existsById(Long id) {
