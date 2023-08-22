@@ -6,6 +6,8 @@ import com.lopreti.university.domain.ports.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class ClassRepositoryImpl implements ClassRepository {
 
@@ -16,4 +18,9 @@ public class ClassRepositoryImpl implements ClassRepository {
     public Class findByCode(String classCode) {
         return classJpaRepository.findByCode(classCode);
     }
+
+    public Optional<Class> existsByCode(String classCode) {
+        return classJpaRepository.existsByCode(classCode);
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.lopreti.university.domain.services;
 
+import com.lopreti.university.adapters.repositories.impl.ClassRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.StudentRepositoryImpl;
 import com.lopreti.university.domain.entities.Student;
+import com.lopreti.university.domain.exception.ClassNotFoundException;
 import com.lopreti.university.domain.exception.StudentAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,11 @@ public class StudentService {
 
     private final StudentRepositoryImpl  studentRepository;
 
-    public StudentService(StudentRepositoryImpl studentRepository) {
+    private final ClassRepositoryImpl classRepository;
+
+    public StudentService(StudentRepositoryImpl studentRepository, ClassRepositoryImpl classRepository) {
         this.studentRepository = studentRepository;
+        this.classRepository = classRepository;
     }
 
     public Student findById(Long id) {
@@ -37,8 +42,13 @@ public class StudentService {
 
     public Student update(Long id, String classCode) {
         Student student = findById(id);
-        student.setClassCode(classCode); // TODO VALID EXIST CLASSCODE
-        return save(student);
+
+        if (classRepository.existsByCode(classCode).isPresent()) {
+            student.setClassCode(classCode);
+            return studentRepository.save(student);
+        } // TODO CALL CLASS SERVICE
+
+        throw new ClassNotFoundException();
     }
 
     public boolean existsById(Long id) {
