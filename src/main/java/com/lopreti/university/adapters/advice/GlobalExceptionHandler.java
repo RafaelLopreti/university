@@ -1,10 +1,7 @@
 package com.lopreti.university.adapters.advice;
 
 import com.lopreti.university.domain.dtos.ErrorResponseDto;
-import com.lopreti.university.domain.exception.StudentAlreadyExistsException;
-import com.lopreti.university.domain.exception.StudentNotFoundException;
-import com.lopreti.university.domain.exception.TeacherAlreadyExistsException;
-import com.lopreti.university.domain.exception.TeacherNotFoundException;
+import com.lopreti.university.domain.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,6 +26,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(com.lopreti.university.domain.exception.ClassNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> handleClassNotFoundException(com.lopreti.university.domain.exception.ClassNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleAddressNotFoundException(AddressNotFoundException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 

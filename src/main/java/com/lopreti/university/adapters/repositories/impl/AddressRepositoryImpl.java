@@ -2,17 +2,30 @@ package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.AddressJpaRepository;
 import com.lopreti.university.domain.entities.Address;
+import com.lopreti.university.domain.entities.Student;
+import com.lopreti.university.domain.entities.Teacher;
+import com.lopreti.university.domain.exception.AddressNotFoundException;
+import com.lopreti.university.domain.exception.StudentNotFoundException;
 import com.lopreti.university.domain.ports.repositories.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AddressRepositoryImpl implements AddressRepository {
 
     @Autowired
     private AddressJpaRepository addressJpaRepository;
+
+    public Address findById(Long id) {
+        return addressJpaRepository.findById(id).orElseThrow(AddressNotFoundException::new);
+    }
+
+    public List<Address> findAll() {
+        return addressJpaRepository.findAll();
+    }
 
     @Override
     public List<Address> findByStreet(String street) {
@@ -42,6 +55,14 @@ public class AddressRepositoryImpl implements AddressRepository {
     @Override
     public List<Address> findByCountry(String country) {
         return addressJpaRepository.findByCountry(country);
+    }
+
+    public Address save(Address address) {
+        return addressJpaRepository.save(address);
+    }
+
+    public boolean existsById(Long id) {
+        return addressJpaRepository.existsById(id);
     }
 
 }
