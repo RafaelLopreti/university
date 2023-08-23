@@ -49,4 +49,8 @@ public class Address {
         this.zipCode = zipCode;
         this.country = country;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
