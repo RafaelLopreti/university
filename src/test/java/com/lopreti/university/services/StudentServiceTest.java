@@ -41,7 +41,7 @@ public class StudentServiceTest {
                         new Users(1L, new Email("test@example.com"), new Password("Abc@1234"), UserStatus.ACTIVE),
                             "Find All Student", "111.222.333-44", new Address(1L,
                             "Street", "Number", "City", "Neighborhood",
-                            12345678L, "Country"
+                            "12345678", "Country", 1L
                         )
                     )
                 )

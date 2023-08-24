@@ -13,13 +13,14 @@ import com.lopreti.university.domain.valueObjects.UserStatus;
 public class GenerateJson {
 
     public static void main(String[] args) {
-        System.out.println("The JSON representation of Object is ");
-
-        // PEOPLE JSON
+        // PEOPLE BODY JSON
         // System.out.println(new Gson().toJson(getPeople()));
 
-        // STUDENT JSON
-        System.out.println(new Gson().toJson(getStudent()));
+        // STUDENT BODY JSON
+        //System.out.println(new Gson().toJson(getStudent()));
+
+        // ADDRESS BODY JSON
+        System.out.println(new Gson().toJson(getAddress()));
     }
 
     public static People getPeople() {
@@ -29,7 +30,7 @@ public class GenerateJson {
         people.setUsers(new Users(
                 2L,
                 new Email("test@example.com"),
-                new Password("P@ssw0rd"),
+                new Password("Abc@1234"),
                 UserStatus.ACTIVE
         ));
         people.setName("John");
@@ -40,8 +41,9 @@ public class GenerateJson {
                 "number",
                 "city",
                 "neighborhood",
-                12345678L,
-                "country"
+                "12345678",
+                "country",
+                1L
         ));
         people.setCategory(PeopleCategory.STUDENT);
         return people;
@@ -55,6 +57,21 @@ public class GenerateJson {
         student.setClassCode("UNI-001");
 
         return student;
+    }
+
+    public static Address getAddress() {
+        Address address = new Address();
+
+        address.setId(3L);
+        address.setStreet("Street");
+        address.setNumber("000");
+        address.setCity("City");
+        address.setNeighborhood("Neighborhood");
+        address.setZipCode("00000000");
+        address.setCountry("Country");
+        address.setUserId(3L);
+
+        return address;
     }
 
 }

@@ -34,6 +34,26 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(MoreThanOneUpdateException.class)
+    public ResponseEntity<ErrorResponseDto> handleMoreThanOneUpdateException(MoreThanOneUpdateException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(WithoutFieldUpdateException.class)
+    public ResponseEntity<ErrorResponseDto> handleWithoutFieldUpdateException(WithoutFieldUpdateException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoValidFieldUpdateException.class)
+    public ResponseEntity<ErrorResponseDto> handleNoValidFieldUpdateException(NoValidFieldUpdateException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ValueCannotBeEmptyException.class)
+    public ResponseEntity<ErrorResponseDto> handleValueCannotBeEmptyException(ValueCannotBeEmptyException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(StudentAlreadyExistsException.class)
     public ResponseEntity<ErrorResponseDto> handleStudentAlreadyExistsException(StudentAlreadyExistsException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);

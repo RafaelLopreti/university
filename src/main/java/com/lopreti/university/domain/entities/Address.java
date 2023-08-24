@@ -1,6 +1,7 @@
 package com.lopreti.university.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -11,36 +12,29 @@ public class Address {
     private Long id;
 
     @Column
-    @NotBlank(message = "Street cannot be empty")
     private String street;
 
     @Column
-    @NotBlank(message = "Number cannot be empty")
     private String number;
 
     @Column
-    @NotBlank(message = "City cannot be empty")
     private String city;
 
     @Column
-    @NotBlank(message = "Neighborhood cannot be empty")
     private String neighborhood;
 
     @Column
-    @NotBlank(message = "ZipCode cannot be empty")
-    private Long zipCode;
+    private String zipCode;
 
     @Column
-    @NotBlank(message = "Country cannot be empty")
     private String country;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private Long userId;
 
     public Address() {}
 
-    public Address(Long id, String street, String number, String city, String neighborhood, Long zipCode, String country) {
+    public Address(Long id, String street, String number, String city, String neighborhood, String zipCode, String country, Long userId) {
         this.id = id;
         this.street = street;
         this.number = number;
@@ -48,9 +42,70 @@ public class Address {
         this.neighborhood = neighborhood;
         this.zipCode = zipCode;
         this.country = country;
+        this.userId = userId;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
