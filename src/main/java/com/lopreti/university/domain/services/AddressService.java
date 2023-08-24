@@ -2,13 +2,12 @@ package com.lopreti.university.domain.services;
 
 import com.lopreti.university.adapters.repositories.impl.AddressRepositoryImpl;
 import com.lopreti.university.domain.entities.Address;
-import com.lopreti.university.domain.entities.Teacher;
-import com.lopreti.university.domain.exception.ClassNotFoundException;
+import com.lopreti.university.domain.exception.NoValidFieldUpdateException;
 import com.lopreti.university.domain.exception.TeacherAlreadyExistsException;
+import com.lopreti.university.domain.exception.ValueCannotBeEmptyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AddressService {
@@ -58,8 +57,23 @@ public class AddressService {
         throw new TeacherAlreadyExistsException();
     }
 
-    public Address update(Long id, String classCode) {
+    public Address update(Long id, String key, String value) {
         Address address = findById(id);
+
+        if (!value.isEmpty()) {
+            switch (key) {
+                case "street" -> address.setStreet(value);
+                case "number" -> address.setNumber(value);
+                case "city" -> address.setCity(value);
+                case "neighborhood" -> address.setNeighborhood(value);
+                case "zipCode" -> address.setZipCode(value);
+                case "country" -> address.setCountry(value);
+                default -> throw new NoValidFieldUpdateException(key);
+            }
+        } else {
+            throw new ValueCannotBeEmptyException();
+        }
+
         return addressRepository.save(address);
     }
 

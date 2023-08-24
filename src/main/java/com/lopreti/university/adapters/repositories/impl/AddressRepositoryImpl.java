@@ -2,16 +2,12 @@ package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.AddressJpaRepository;
 import com.lopreti.university.domain.entities.Address;
-import com.lopreti.university.domain.entities.Student;
-import com.lopreti.university.domain.entities.Teacher;
 import com.lopreti.university.domain.exception.AddressNotFoundException;
-import com.lopreti.university.domain.exception.StudentNotFoundException;
 import com.lopreti.university.domain.ports.repositories.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class AddressRepositoryImpl implements AddressRepository {
