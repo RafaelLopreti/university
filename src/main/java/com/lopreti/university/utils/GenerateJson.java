@@ -5,8 +5,6 @@ import com.lopreti.university.domain.entities.Address;
 import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.entities.Student;
 import com.lopreti.university.domain.entities.Users;
-import com.lopreti.university.domain.valueObjects.Email;
-import com.lopreti.university.domain.valueObjects.Password;
 import com.lopreti.university.domain.valueObjects.PeopleCategory;
 import com.lopreti.university.domain.valueObjects.UserStatus;
 
@@ -21,6 +19,9 @@ public class GenerateJson {
 
         // ADDRESS BODY JSON
         System.out.println(new Gson().toJson(getAddress()));
+
+        // USER BODY JSON
+        //System.out.println(new Gson().toJson(getUser()));
     }
 
     public static People getPeople() {
@@ -29,8 +30,8 @@ public class GenerateJson {
         people.setId(2L);
         people.setUsers(new Users(
                 2L,
-                new Email("test@example.com"),
-                new Password("Abc@1234"),
+                "test@example.com",
+                "Abc@1234",
                 UserStatus.ACTIVE
         ));
         people.setName("John");
@@ -43,7 +44,7 @@ public class GenerateJson {
                 "neighborhood",
                 "12345678",
                 "country",
-                1L
+                people.getUsers()
         ));
         people.setCategory(PeopleCategory.STUDENT);
         return people;
@@ -69,9 +70,20 @@ public class GenerateJson {
         address.setNeighborhood("Neighborhood");
         address.setZipCode("00000000");
         address.setCountry("Country");
-        address.setUserId(3L);
+        address.setUser(getPeople().getUsers());
 
         return address;
+    }
+
+    public static Users getUser() {
+        Users user = new Users();
+
+        user.setId(4L);
+        user.setEmail("test4@gmail.com");
+        user.setPassword("Abc@1234");
+        user.setStatus(UserStatus.ACTIVE);
+
+        return user;
     }
 
 }
