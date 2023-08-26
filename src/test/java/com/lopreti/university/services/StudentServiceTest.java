@@ -6,8 +6,6 @@ import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.entities.Student;
 import com.lopreti.university.domain.entities.Users;
 import com.lopreti.university.domain.services.StudentService;
-import com.lopreti.university.domain.valueObjects.Email;
-import com.lopreti.university.domain.valueObjects.Password;
 import com.lopreti.university.domain.valueObjects.UserStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,10 +36,11 @@ public class StudentServiceTest {
         studentList.add(
                 new Student(1L,"UNI-001",
                     new People(1L,
-                        new Users(1L, new Email("test@example.com"), new Password("Abc@1234"), UserStatus.ACTIVE),
+                        new Users(1L, "test@example.com", "Abc@1234", UserStatus.ACTIVE),
                             "Find All Student", "111.222.333-44", new Address(1L,
                             "Street", "Number", "City", "Neighborhood",
-                            "12345678", "Country", 1L
+                            "12345678", "Country", new Users(1L, "test@example.com",
+                            "Abc@1234", UserStatus.ACTIVE)
                         )
                     )
                 )

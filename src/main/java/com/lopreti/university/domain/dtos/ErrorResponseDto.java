@@ -8,6 +8,10 @@ public class ErrorResponseDto {
         this.errorInfoDto = new ErrorInfoDto(code, message);
     }
 
+    public ErrorResponseDto(String code, String message, String action) {
+        this.errorInfoDto = new ErrorInfoDto(code, message, action);
+    }
+
     public ErrorInfoDto getError() {
         return errorInfoDto;
     }
