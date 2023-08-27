@@ -64,4 +64,28 @@ public class People {
     public void setCategory(PeopleCategory category) {
         this.category = category;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTaxpayerRegistry() {
+        return taxpayerRegistry;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public PeopleCategory getCategory() {
+        return category;
+    }
 }

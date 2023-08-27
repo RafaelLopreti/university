@@ -1,11 +1,10 @@
 package com.lopreti.university.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.hateoas.RepresentationModel;
 
 @Entity
-public class Address {
+public class Address extends RepresentationModel<Address> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +28,13 @@ public class Address {
     @Column
     private String country;
 
+    @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private Long userId;
+    private Users user;
 
     public Address() {}
 
-    public Address(Long id, String street, String number, String city, String neighborhood, String zipCode, String country, Long userId) {
+    public Address(Long id, String street, String number, String city, String neighborhood, String zipCode, String country, Users user) {
         this.id = id;
         this.street = street;
         this.number = number;
@@ -42,7 +42,17 @@ public class Address {
         this.neighborhood = neighborhood;
         this.zipCode = zipCode;
         this.country = country;
-        this.userId = userId;
+        this.user = user;
+    }
+
+    public Address(Long id, String street, String number, String city, String neighborhood, String zipCode, String country) {
+        this.id = id;
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.neighborhood = neighborhood;
+        this.zipCode = zipCode;
+        this.country = country;
     }
 
     public Long getId() {
@@ -101,11 +111,11 @@ public class Address {
         this.country = country;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

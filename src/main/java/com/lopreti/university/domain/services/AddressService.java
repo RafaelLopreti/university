@@ -2,8 +2,8 @@ package com.lopreti.university.domain.services;
 
 import com.lopreti.university.adapters.repositories.impl.AddressRepositoryImpl;
 import com.lopreti.university.domain.entities.Address;
+import com.lopreti.university.domain.exception.AddressAlreadyExistsException;
 import com.lopreti.university.domain.exception.NoValidFieldUpdateException;
-import com.lopreti.university.domain.exception.TeacherAlreadyExistsException;
 import com.lopreti.university.domain.exception.ValueCannotBeEmptyException;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +54,7 @@ public class AddressService {
         if (!existsById(address.getId())) {
             return addressRepository.save(address);
         }
-        throw new TeacherAlreadyExistsException();
+        throw new AddressAlreadyExistsException();
     }
 
     public Address update(Long id, String key, String value) {

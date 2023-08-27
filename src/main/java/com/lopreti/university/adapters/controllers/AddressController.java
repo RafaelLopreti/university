@@ -1,5 +1,6 @@
 package com.lopreti.university.adapters.controllers;
 
+import com.lopreti.university.domain.dtos.ListResponseDto;
 import com.lopreti.university.domain.entities.Address;
 import com.lopreti.university.domain.exception.AddressNotFoundException;
 import com.lopreti.university.domain.exception.MoreThanOneUpdateException;
@@ -15,11 +16,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.lang.String.format;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("/api/v1/university")
 public class AddressController {
-
-    // TODO IMPLEMENT HYPERMIDIA AND HANDLERS
 
     private final AddressService addressService;
 
@@ -28,13 +31,25 @@ public class AddressController {
     }
 
     @GetMapping("/addresses")
-    public List<Address> getAll() {
-        return this.addressService.findAll();
+    public ResponseEntity<ListResponseDto> getAll() {
+        List<Address> addresses = this.addressService.findAll();
+
+        ListResponseDto response = new ListResponseDto();
+        response.setObjects(addresses);
+        response.setSelfLink(linkTo(methodOn(AddressController.class).getAll()).withSelfRel());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/addresses/{id}")
-    public Address getById(@PathVariable Long id) {
-        return this.addressService.findById(id);
+    public ResponseEntity<Address> getById(@PathVariable Long id) {
+        Address address = this.addressService.findById(id);
+
+        address.add(linkTo(methodOn(AddressController.class).getById(address.getId())).withSelfRel());
+        address.add(linkTo(methodOn(AddressController.class).getAll()).withRel("all-addresses"));
+        address.getUser().add(linkTo(methodOn(UserController.class).getById(address.getUser().getId())).withSelfRel());
+
+        return ResponseEntity.ok(address);
     }
 
     @GetMapping("/addresses-by")
@@ -90,7 +105,7 @@ public class AddressController {
             throw new MoreThanOneUpdateException();
         } else {
             addressService.update(id, keys.get(0), values.get(0));
-            return new ResponseEntity<>("Address updated.", HttpStatus.OK);
+            return new ResponseEntity<>(format("Address %s updated.", keys.get(0)), HttpStatus.OK);
         }
     }
 
