@@ -15,4 +15,7 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
     @Query(value = "SELECT * FROM Course WHERE period = ?1", nativeQuery = true)
     List<Course> findByPeriod(Period period);
 
+    @Query(value = "SELECT * FROM Course WHERE name = ?1", nativeQuery = true)
+    Boolean existsByName(String courseName);
+
 }

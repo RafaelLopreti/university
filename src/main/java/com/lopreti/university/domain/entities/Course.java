@@ -25,4 +25,35 @@ public class Course {
     @JoinColumn(name = "subjects_id", nullable = false)
     private List<Subjects> subjectsList = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    public List<Subjects> getSubjectsList() {
+        return subjectsList;
+    }
+
+    public void setSubjectsList(List<Subjects> subjectsList) {
+        this.subjectsList = subjectsList;
+    }
 }

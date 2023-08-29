@@ -89,4 +89,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage(), ex.getAction()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CourseAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleCourseAlreadyExistsException(CourseAlreadyExistsException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CourseNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleCourseNotFoundException(CourseNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
 }

@@ -15,6 +15,14 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Autowired
     private CourseJpaRepository courseJpaRepository;
 
+    public Course findById(Long id) {
+        return courseJpaRepository.findById(id).orElseThrow(); // TODO COURSE NOT FOUND EX
+    }
+
+    public List<Course> findAll() {
+        return courseJpaRepository.findAll();
+    }
+
     @Override
     public Course findByName(String courseName) {
         return courseJpaRepository.findByName(courseName);
@@ -23,5 +31,17 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public List<Course> findByPeriod(Period period) {
         return courseJpaRepository.findByPeriod(period);
+    }
+
+    public Course save(Course course) {
+        return courseJpaRepository.save(course);
+    }
+
+    public boolean existsById(Long id) {
+        return courseJpaRepository.existsById(id);
+    }
+
+    public boolean existsByName(String name) {
+        return courseJpaRepository.existsByName(name);
     }
 }
