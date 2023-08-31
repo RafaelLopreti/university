@@ -2,11 +2,11 @@ package com.lopreti.university.domain.exception;
 
 import static java.lang.String.format;
 
-public class NoValidFieldUpdateException extends RuntimeException {
+public class NoValidFieldException extends RuntimeException {
 
     private String field;
 
-    public NoValidFieldUpdateException(String field) {
+    public NoValidFieldException(String field) {
         this.field = field;
     }
 
@@ -15,7 +15,7 @@ public class NoValidFieldUpdateException extends RuntimeException {
     }
 
     public String getMessage() {
-        return format("%s not a valid field to update", field);
+        return format("%s not a valid field.", field);
     }
 
 }

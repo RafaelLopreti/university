@@ -2,12 +2,15 @@ package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.CourseJpaRepository;
 import com.lopreti.university.domain.entities.Course;
+import com.lopreti.university.domain.exception.CourseNotFoundException;
+import com.lopreti.university.domain.exception.PeriodNotFoundException;
 import com.lopreti.university.domain.ports.repositories.CourseRepository;
 import com.lopreti.university.domain.valueObjects.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CourseRepositoryImpl implements CourseRepository {
@@ -16,7 +19,7 @@ public class CourseRepositoryImpl implements CourseRepository {
     private CourseJpaRepository courseJpaRepository;
 
     public Course findById(Long id) {
-        return courseJpaRepository.findById(id).orElseThrow(); // TODO COURSE NOT FOUND EX
+        return courseJpaRepository.findById(id).orElseThrow(CourseNotFoundException::new);
     }
 
     public List<Course> findAll() {
@@ -25,11 +28,11 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public Course findByName(String courseName) {
-        return courseJpaRepository.findByName(courseName);
+        return courseJpaRepository.findByName(courseName).orElseThrow(CourseNotFoundException::new);
     }
 
     @Override
-    public List<Course> findByPeriod(Period period) {
+    public List<Course> findByPeriod(String period) {
         return courseJpaRepository.findByPeriod(period);
     }
 
@@ -41,7 +44,11 @@ public class CourseRepositoryImpl implements CourseRepository {
         return courseJpaRepository.existsById(id);
     }
 
-    public boolean existsByName(String name) {
+    public Optional<?> existsByName(String name) {
         return courseJpaRepository.existsByName(name);
+    }
+
+    public Optional<?> existsByPeriod(String period) {
+        return courseJpaRepository.existsByPeriod(period);
     }
 }

@@ -44,7 +44,7 @@ public class UserService {
             switch (key) {
                 case "email" -> user.setEmail(value);
                 case "password" -> user.setPassword(value);
-                default -> throw new NoValidFieldUpdateException(key);
+                default -> throw new NoValidFieldException(key);
             }
         } else {
             throw new ValueCannotBeEmptyException();
@@ -65,10 +65,9 @@ public class UserService {
         return usersRepository.existsById(id);
     }
 
-    public boolean validFormat(String email, String password) {
+    public void validFormat(String email, String password) {
 
-        if (email != null && password != null) {
-        } else {email = ""; password = "";}
+        if (email == null || password == null) {email = ""; password = "";}
 
         Matcher matcherEmail = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         if (!matcherEmail.find()) {
@@ -79,8 +78,6 @@ public class UserService {
         if (!matcherPassword.find()) {
             throw new PasswordInvalidFormatException();
         }
-
-        return true;
     }
 
 }
