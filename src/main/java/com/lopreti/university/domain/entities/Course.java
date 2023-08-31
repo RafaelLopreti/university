@@ -18,7 +18,7 @@ public class Course {
     @NotBlank(message = "Course name cannot be empty")
     private String name;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private Period period;
 
     @ManyToMany

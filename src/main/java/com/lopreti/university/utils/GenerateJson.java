@@ -1,12 +1,12 @@
 package com.lopreti.university.utils;
 
 import com.google.gson.Gson;
-import com.lopreti.university.domain.entities.Address;
-import com.lopreti.university.domain.entities.People;
-import com.lopreti.university.domain.entities.Student;
-import com.lopreti.university.domain.entities.Users;
+import com.lopreti.university.domain.entities.*;
 import com.lopreti.university.domain.valueObjects.PeopleCategory;
+import com.lopreti.university.domain.valueObjects.Period;
 import com.lopreti.university.domain.valueObjects.UserStatus;
+
+import java.util.ArrayList;
 
 public class GenerateJson {
 
@@ -18,10 +18,13 @@ public class GenerateJson {
         //System.out.println(new Gson().toJson(getStudent()));
 
         // ADDRESS BODY JSON
-        System.out.println(new Gson().toJson(getAddress()));
+        //System.out.println(new Gson().toJson(getAddress()));
 
         // USER BODY JSON
         //System.out.println(new Gson().toJson(getUser()));
+
+        // COURSE BODY JSON
+        System.out.println(new Gson().toJson(getCourse()));
     }
 
     public static People getPeople() {
@@ -84,6 +87,17 @@ public class GenerateJson {
         user.setStatus(UserStatus.ACTIVE);
 
         return user;
+    }
+
+    public static Course getCourse() {
+        Course course = new Course();
+
+        course.setId(1L);
+        course.setName("Ciencia da Computacao");
+        course.setPeriod(Period.AFTERNOON);
+        course.setSubjectsList(new ArrayList<>());
+
+        return course;
     }
 
 }

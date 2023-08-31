@@ -49,8 +49,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NoValidFieldUpdateException.class)
-    public ResponseEntity<ErrorResponseDto> handleNoValidFieldUpdateException(NoValidFieldUpdateException ex) {
+    @ExceptionHandler(NoValidFieldException.class)
+    public ResponseEntity<ErrorResponseDto> handleNoValidFieldUpdateException(NoValidFieldException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
@@ -96,6 +96,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CourseNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> handleCourseNotFoundException(CourseNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PeriodNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handlePeriodNotFoundException(PeriodNotFoundException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
