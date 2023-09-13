@@ -4,15 +4,18 @@ import com.lopreti.university.adapters.model.RootEntryPointModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 public class RootEntryPointController {
+
+    private CourseController courseController;
 
     @GetMapping
     public RootEntryPointModel root() {
         RootEntryPointModel model = new RootEntryPointModel();
-
-        //model.add(linkTo()); // TODO LIST COURSES
-
+        model.add(linkTo(methodOn(CourseController.class).getAll()).withRel("all-courses"));
         return model;
     }
 
