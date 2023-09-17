@@ -104,4 +104,19 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ClassAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleClassAlreadyExistsException(ClassAlreadyExistsException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PeopleNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handlePeopleNotFoundException(PeopleNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SubjectsNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleSubjectsNotFoundException(SubjectsNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
 }

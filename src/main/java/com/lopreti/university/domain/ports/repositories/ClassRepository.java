@@ -8,6 +8,6 @@ public interface ClassRepository {
 
     public Class findByCode(String classCode);
 
-    public Optional<Class> existsByCode(String classCode);
+    public Optional<?> existsByCode(String classCode);
 
 }
