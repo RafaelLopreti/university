@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(com.lopreti.university.domain.exception.ClassNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleClassNotFoundException(com.lopreti.university.domain.exception.ClassNotFoundException ex) {
+    @ExceptionHandler(ClassesNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleClassNotFoundException(ClassesNotFoundException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 

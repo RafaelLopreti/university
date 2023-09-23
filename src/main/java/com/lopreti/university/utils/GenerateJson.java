@@ -7,6 +7,7 @@ import com.lopreti.university.domain.valueObjects.Period;
 import com.lopreti.university.domain.valueObjects.UserStatus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GenerateJson {
 
@@ -24,7 +25,10 @@ public class GenerateJson {
         //System.out.println(new Gson().toJson(getUser()));
 
         // COURSE BODY JSON
-        System.out.println(new Gson().toJson(getCourse()));
+        //System.out.println(new Gson().toJson(getCourse()));
+
+        // CLASSES BODY JSON
+        System.out.println(new Gson().toJson(getClasses()));
     }
 
     public static People getPeople() {
@@ -98,6 +102,17 @@ public class GenerateJson {
         course.setSubjectsList(new ArrayList<>());
 
         return course;
+    }
+
+    public static Classes getClasses() {
+        Classes classes = new Classes();
+
+        classes.setId(1L);
+        classes.setCode("UNI-001");
+        classes.setPeopleList(new ArrayList<>(Collections.singleton(getPeople())));
+        classes.setSubjectsList(new ArrayList<>());
+
+        return classes;
     }
 
 }

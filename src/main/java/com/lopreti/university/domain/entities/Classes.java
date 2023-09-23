@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Class {
+public class Classes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

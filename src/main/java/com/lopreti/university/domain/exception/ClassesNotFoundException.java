@@ -1,8 +1,8 @@
 package com.lopreti.university.domain.exception;
 
-public class ClassNotFoundException extends RuntimeException {
+public class ClassesNotFoundException extends RuntimeException {
 
-    public ClassNotFoundException() {}
+    public ClassesNotFoundException() {}
 
     public String getCode() {
         return "UNICODE-005";

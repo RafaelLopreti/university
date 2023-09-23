@@ -1,6 +1,5 @@
 package com.lopreti.university.adapters.repositories.jpa;
 
-import com.lopreti.university.domain.entities.Class;
 import com.lopreti.university.domain.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
