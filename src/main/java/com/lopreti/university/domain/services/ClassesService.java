@@ -3,11 +3,11 @@ package com.lopreti.university.domain.services;
 import com.lopreti.university.adapters.repositories.impl.ClassRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.PeopleRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.SubjectsRepositoryImpl;
-import com.lopreti.university.domain.entities.Class;
+import com.lopreti.university.domain.entities.Classes;
 import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.entities.Subjects;
 import com.lopreti.university.domain.exception.ClassAlreadyExistsException;
-import com.lopreti.university.domain.exception.ClassNotFoundException;
+import com.lopreti.university.domain.exception.ClassesNotFoundException;
 import com.lopreti.university.domain.exception.NoValidFieldException;
 import com.lopreti.university.domain.exception.ValueCannotBeEmptyException;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ClassService {
+public class ClassesService {
 
     private final ClassRepositoryImpl classRepository;
 
@@ -24,34 +24,37 @@ public class ClassService {
 
     private final SubjectsRepositoryImpl subjectsRepository;
 
-    public ClassService(ClassRepositoryImpl classRepository, PeopleRepositoryImpl peopleRepository,
-                        SubjectsRepositoryImpl subjectsRepository) {
+    public ClassesService(ClassRepositoryImpl classRepository, PeopleRepositoryImpl peopleRepository,
+                          SubjectsRepositoryImpl subjectsRepository) {
         this.classRepository = classRepository;
         this.peopleRepository = peopleRepository;
         this.subjectsRepository = subjectsRepository;
     }
 
-    public Class findById(Long id) {
+    public Classes findById(Long id) {
         return classRepository.findById(id);
     }
 
-    public List<Class> findAll(){
+    public List<Classes> findAll(){
         return classRepository.findAll();
     }
 
-    public Class findByCode(String classCode) {
-        return classRepository.findByCode(classCode);
+    public Classes findByCode(String classCode) {
+        if (classRepository.existsByCode(classCode).isPresent()) {
+            return classRepository.findByCode(classCode);
+        }
+        throw new ClassesNotFoundException();
     }
 
-    public Class save(Class classes) {
+    public Classes save(Classes classes) {
         if (!existsById(classes.getId())) {
             return classRepository.save(classes);
         }
         throw new ClassAlreadyExistsException();
     }
 
-    public Class updateCode(Long id, String key, String value) {
-        Class classes = findById(id);
+    public Classes updateCode(Long id, String key, String value) {
+        Classes classes = findById(id);
 
         if (!value.isEmpty()) {
             if (key.equals("code")) {
@@ -66,11 +69,11 @@ public class ClassService {
         return classRepository.save(classes);
     }
 
-    public Class updatePeopleList(String classCode, List<Long> newPeopleIds) {
-        Class classes = findByCode(classCode);
+    public Classes updatePeopleList(String classCode, List<Long> newPeopleIds) {
+        Classes classes = findByCode(classCode);
 
         if (classes == null) {
-            throw new ClassNotFoundException();
+            throw new ClassesNotFoundException();
         }
 
         List<People> updatedPeopleList = new ArrayList<>();
@@ -85,11 +88,11 @@ public class ClassService {
         return classRepository.save(classes);
     }
 
-    public Class updateSubjectsList(String classCode, List<Long> newSubjectsIds) {
-        Class classes = findByCode(classCode);
+    public Classes updateSubjectsList(String classCode, List<Long> newSubjectsIds) {
+        Classes classes = findByCode(classCode);
 
         if (classes == null) {
-            throw new ClassNotFoundException();
+            throw new ClassesNotFoundException();
         }
 
         List<Subjects> updatedSubjectsList = new ArrayList<>();

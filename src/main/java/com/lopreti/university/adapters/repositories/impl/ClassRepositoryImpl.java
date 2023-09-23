@@ -1,8 +1,9 @@
 package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.ClassJpaRepository;
-import com.lopreti.university.domain.entities.Class;
-import com.lopreti.university.domain.exception.ClassNotFoundException;
+import com.lopreti.university.domain.entities.Classes;
+import com.lopreti.university.domain.entities.People;
+import com.lopreti.university.domain.exception.ClassesNotFoundException;
 import com.lopreti.university.domain.ports.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,24 +17,24 @@ public class ClassRepositoryImpl implements ClassRepository {
     @Autowired
     private ClassJpaRepository classJpaRepository;
 
-    public Class findById(Long id) {
-        return classJpaRepository.findById(id).orElseThrow(ClassNotFoundException::new);
+    public Classes findById(Long id) {
+        return classJpaRepository.findById(id).orElseThrow(ClassesNotFoundException::new);
     }
 
-    public List<Class> findAll() {
+    public List<Classes> findAll() {
         return classJpaRepository.findAll();
     }
 
     @Override
-    public Class findByCode(String classCode) {
+    public Classes findByCode(String classCode) {
         return classJpaRepository.findByCode(classCode);
     }
 
-    public Class save(Class classes) {
+    public Classes save(Classes classes) {
         return classJpaRepository.save(classes);
     }
 
-    public Optional<Class> existsByCode(String classCode) {
+    public Optional<Classes> existsByCode(String classCode) {
         return classJpaRepository.existsByCode(classCode);
     }
 

@@ -1,8 +1,6 @@
 package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.UsersJpaRepository;
-import com.lopreti.university.domain.entities.Class;
-import com.lopreti.university.domain.entities.Teacher;
 import com.lopreti.university.domain.entities.Users;
 import com.lopreti.university.domain.exception.UserNotFoundException;
 import com.lopreti.university.domain.ports.repositories.UsersRepository;

@@ -3,7 +3,7 @@ package com.lopreti.university.domain.services;
 import com.lopreti.university.adapters.repositories.impl.ClassRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.TeacherRepositoryImpl;
 import com.lopreti.university.domain.entities.Teacher;
-import com.lopreti.university.domain.exception.ClassNotFoundException;
+import com.lopreti.university.domain.exception.ClassesNotFoundException;
 import com.lopreti.university.domain.exception.TeacherAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +48,7 @@ public class TeacherService {
             return teacherRepository.save(teacher);
         } // TODO CALL CLASS SERVICE
 
-        throw new ClassNotFoundException();
+        throw new ClassesNotFoundException();
     }
 
     public boolean existsById(Long id) {
