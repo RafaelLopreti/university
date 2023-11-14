@@ -6,8 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Objects;
+
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.FIELD_CANNOT_BE_NULL_ERROR_CODE;
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.INVALID_REQUEST_BODY_ERROR_CODE;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -74,8 +81,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
@@ -116,6 +123,53 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SubjectsNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> handleSubjectsNotFoundException(SubjectsNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponseDto> handleHttpMessageNotReadableException() {
+    return new ResponseEntity<>(new ErrorResponseDto(INVALID_REQUEST_BODY_ERROR_CODE.getCode(),
+            "Error reading the request body."), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(FIELD_CANNOT_BE_NULL_ERROR_CODE.getCode(),
+                Objects.requireNonNull(ex.getFieldError()).getField() + " cannot be null"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SubjectAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleSubjectAlreadyExistsException(SubjectAlreadyExistsException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PeopleCategoryNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handlePeopleCategoryNotFoundException(PeopleCategoryNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserStatusNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleUserStatusNotFoundException(UserStatusNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserAddressExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleUserAddressExistsException(UserAddressExistsException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AddressUserExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleAddressUserExistsException(AddressUserExistsException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserIsRequiredException.class)
+    public ResponseEntity<ErrorResponseDto> handleUserIsRequiredException(UserIsRequiredException ex) {
+        return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PeopleUserExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handlePeopleUserExistsException(PeopleUserExistsException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 

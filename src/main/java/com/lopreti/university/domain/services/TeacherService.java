@@ -1,6 +1,5 @@
 package com.lopreti.university.domain.services;
 
-import com.lopreti.university.adapters.repositories.impl.ClassRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.TeacherRepositoryImpl;
 import com.lopreti.university.domain.entities.Teacher;
 import com.lopreti.university.domain.exception.ClassesNotFoundException;
@@ -8,17 +7,18 @@ import com.lopreti.university.domain.exception.TeacherAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TeacherService {
 
     private final TeacherRepositoryImpl teacherRepository;
 
-    private final ClassRepositoryImpl classRepository;
+    private final ClassesService classesService;
 
-    public TeacherService(TeacherRepositoryImpl teacherRepository, ClassRepositoryImpl classRepository) {
+    public TeacherService(TeacherRepositoryImpl teacherRepository, ClassesService classesService) {
         this.teacherRepository = teacherRepository;
-        this.classRepository = classRepository;
+        this.classesService = classesService;
     }
 
     public Teacher findById(Long id) {
@@ -43,13 +43,29 @@ public class TeacherService {
     public Teacher update(Long id, String classCode) {
         Teacher teacher = findById(id);
 
-        if (classRepository.existsByCode(classCode).isPresent()) {
-            teacher.setClassList(classCode);
+        if (classesService.existsByCode(classCode).isPresent()) {
+            teacher.setClassCode(classCode);
             return teacherRepository.save(teacher);
-        } // TODO CALL CLASS SERVICE
+        }
 
-        throw new ClassesNotFoundException();
+        throw new ClassesNotFoundException(classCode);
     }
+
+    public Teacher update(Long id, Teacher teacherBody) {
+        Teacher teacher = findById(id);
+        String teacherClassCode = teacherBody.getClassCode();
+
+        if (classesService.existsByCode(teacherClassCode).isPresent()) {
+            teacher.setClassCode(teacherClassCode);
+        } else {
+            throw new ClassesNotFoundException(teacherClassCode);
+        }
+        teacher.setPeople(Objects.requireNonNullElse(teacherBody.getPeople(), teacher.getPeople()));
+
+        return teacherRepository.save(teacher);
+
+    }
+
 
     public boolean existsById(Long id) {
         return teacherRepository.existsById(id);

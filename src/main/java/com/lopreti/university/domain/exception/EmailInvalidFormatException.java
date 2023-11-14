@@ -1,11 +1,13 @@
 package com.lopreti.university.domain.exception;
 
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.EMAIL_INVALID_FORMAT_ERROR_CODE;
+
 public class EmailInvalidFormatException extends RuntimeException {
 
     public EmailInvalidFormatException() {}
 
     public String getCode() {
-        return "UNICODE-015";
+        return EMAIL_INVALID_FORMAT_ERROR_CODE.getCode();
     }
 
     public String getMessage() {

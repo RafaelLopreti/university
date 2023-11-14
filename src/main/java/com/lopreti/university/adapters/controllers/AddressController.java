@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.String.format;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -34,6 +33,10 @@ public class AddressController {
     public ResponseEntity<ListResponseDto> getAll() {
         List<Address> addresses = this.addressService.findAll();
 
+        for (Address address : addresses) {
+            address.add(linkTo(methodOn(AddressController.class).getById(address.getId())).withRel("get-address-by-id"));
+        }
+
         ListResponseDto response = new ListResponseDto();
         response.setObjects(addresses);
         response.setSelfLink(linkTo(methodOn(AddressController.class).getAll()).withSelfRel());
@@ -46,42 +49,60 @@ public class AddressController {
         Address address = this.addressService.findById(id);
 
         address.add(linkTo(methodOn(AddressController.class).getById(address.getId())).withSelfRel());
-        address.add(linkTo(methodOn(AddressController.class).getAll()).withRel("all-addresses"));
-        address.getUser().add(linkTo(methodOn(UserController.class).getById(address.getUser().getId())).withSelfRel());
+        address.add(linkTo(methodOn(AddressController.class).getAll()).withRel("get-all-addresses"));
 
         return ResponseEntity.ok(address);
     }
 
     @GetMapping("/addresses-by")
-    public List<Address> getByParameters(
+    public ListResponseDto getByParameters(
             @RequestParam(name = "street", required = false) String street,
             @RequestParam(name = "number", required = false) String number,
             @RequestParam(name = "city", required = false) String city,
             @RequestParam(name = "neighborhood", required = false) String neighborhood,
             @RequestParam(name = "zipCode", required = false) String zipCode,
-            @RequestParam(name = "country", required = false) String country) {
+            @RequestParam(name = "country", required = false) String country,
+            @RequestParam(name = "user", required = false) Long userId) {
+
+        List<Address> addresses = null;
 
         if (street != null) {
-            return addressService.findByStreet(street);
+            addresses = addressService.findByStreet(street);
         } else if (number != null) {
-            return addressService.findByNumber(number);
+            addresses = addressService.findByNumber(number);
         } else if (city != null) {
-            return addressService.findByCity(city);
+            addresses = addressService.findByCity(city);
         } else if (neighborhood != null) {
-            return addressService.findByNeighborhood(neighborhood);
+            addresses = addressService.findByNeighborhood(neighborhood);
         } else if (zipCode != null) {
-            return addressService.findByZipCode(zipCode);
+            addresses = addressService.findByZipCode(zipCode);
         } else if (country != null) {
-            return addressService.findByCountry(country);
+            addresses = addressService.findByCountry(country);
+        } else if (userId != null) {
+            addresses = addressService.findByUserId(userId);
         }
 
-        throw new AddressNotFoundException();
+        if (addresses != null) {
+            for (Address address : addresses) {
+                address.add(linkTo(methodOn(AddressController.class).getById(address.getId())).withSelfRel());
+            }
+            ListResponseDto response = new ListResponseDto();
+            response.setObjects(addresses);
+            response.setSelfLink(linkTo(methodOn(AddressController.class).getAll()).withRel("get-all-addresses"));
+            return response;
+        } else {
+            throw new AddressNotFoundException();
+        }
     }
 
     @PostMapping("/addresses")
-    public ResponseEntity<?> save(@Valid @RequestBody Address address) {
-        this.addressService.save(address);
-        return new ResponseEntity<>("Address created.", HttpStatus.CREATED);
+    public ResponseEntity<?> save(@Valid @RequestBody Address addressSave) {
+        Address address = this.addressService.save(addressSave);
+
+        address.add(linkTo(methodOn(AddressController.class).getById(addressSave.getId())).withSelfRel());
+        address.add(linkTo(methodOn(AddressController.class).getAll()).withRel("get-all-addresses"));
+
+        return new ResponseEntity<>(address, HttpStatus.CREATED);
     }
 
     @PatchMapping("/addresses/{id}")
@@ -104,9 +125,23 @@ public class AddressController {
         } else if (updateCount.get() > 1) {
             throw new MoreThanOneUpdateException();
         } else {
-            addressService.update(id, keys.get(0), values.get(0));
-            return new ResponseEntity<>(format("Address %s updated.", keys.get(0)), HttpStatus.OK);
+            Address address = this.addressService.update(id, keys.get(0), values.get(0));
+
+            address.add(linkTo(methodOn(AddressController.class).getById(address.getId())).withSelfRel());
+            address.add(linkTo(methodOn(AddressController.class).getAll()).withRel("get-all-addresses"));
+
+            return new ResponseEntity<>(address, HttpStatus.OK);
         }
+    }
+
+    @PutMapping("/addresses/{id}")
+    public ResponseEntity<?> updateAddress(@PathVariable("id") Long id, @RequestBody Address address) {
+        Address addresses = this.addressService.update(id, address);
+
+        addresses.add(linkTo(methodOn(AddressController.class).getById(id)).withRel("get-address-by-id"));
+        addresses.add(linkTo(methodOn(AddressController.class).getAll()).withRel("get-all-addresses"));
+
+        return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
 
 }

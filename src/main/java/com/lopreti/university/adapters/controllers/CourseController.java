@@ -1,5 +1,6 @@
 package com.lopreti.university.adapters.controllers;
 
+import com.lopreti.university.domain.dtos.ListResponseDto;
 import com.lopreti.university.domain.entities.Course;
 import com.lopreti.university.domain.exception.MoreThanOneUpdateException;
 import com.lopreti.university.domain.exception.WithoutFieldUpdateException;
@@ -14,13 +15,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.String.format;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/v1/university")
 public class CourseController {
 
-    // TODO IMPLEMENT HYPERMIDIA AND HANDLERS
     private final CourseService courseService;
 
     public CourseController(CourseService courseService) {
@@ -28,29 +29,89 @@ public class CourseController {
     }
 
     @GetMapping("/courses")
-    public List<Course> getAll() {
-        return this.courseService.findAll();
+    public ResponseEntity<?> getAll() {
+        List<Course> courses = this.courseService.findAll();
+
+        for (Course courseObject : courses) {
+            courseObject.add(linkTo(methodOn(CourseController.class).getById(courseObject.getId()))
+                    .withRel("get-class-by-id"));
+            courseObject.add(linkTo(methodOn(CourseController.class).getByName(courseObject.getName()))
+                    .withRel("get-class-by-name"));
+            courseObject.add(linkTo(methodOn(CourseController.class).getByPeriod(courseObject.getPeriod().name()))
+                    .withRel("get-class-by-period"));
+        }
+
+        ListResponseDto response = new ListResponseDto();
+        response.setObjects(courses);
+        response.setSelfLink(linkTo(methodOn(CourseController.class).getAll()).withSelfRel());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/courses/{id}")
-    public Course getById(@PathVariable Long id) {
-        return this.courseService.findById(id);
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        Course course = this.courseService.findById(id);
+
+        course.add(linkTo(methodOn(CourseController.class).getByName(course.getName()))
+                .withRel("get-course-by-name"));
+        course.add(linkTo(methodOn(CourseController.class).getByPeriod(course.getPeriod().name()))
+                .withRel("get-course-by-period"));
+        course.add(linkTo(methodOn(CourseController.class).getAll())
+                .withRel("get-all-courses"));
+        course.add(linkTo(methodOn(CourseController.class).getById(course.getId()))
+                .withSelfRel());
+
+        return ResponseEntity.ok(course);
     }
 
     @GetMapping("/courses-name/{name}")
-    public Course getByName(@PathVariable("name") String name) {
-        return this.courseService.findByName(name);
+    public ResponseEntity<?> getByName(@PathVariable("name") String name) {
+        Course course = this.courseService.findByName(name);
+
+        course.add(linkTo(methodOn(CourseController.class).getById(course.getId()))
+                .withRel("get-course-by-id"));
+        course.add(linkTo(methodOn(CourseController.class).getByPeriod(course.getPeriod().name()))
+                .withRel("get-course-by-period"));
+        course.add(linkTo(methodOn(CourseController.class).getAll())
+                .withRel("get-all-courses"));
+        course.add(linkTo(methodOn(CourseController.class).getByName(course.getName())).withSelfRel());
+
+        return ResponseEntity.ok(course);
     }
 
     @GetMapping("/courses-period/{period}")
-    public List<Course> getByPeriod(@PathVariable("period") String period) {
-        return this.courseService.findByPeriod(period);
+    public ResponseEntity<?> getByPeriod(@PathVariable("period") String period) {
+        List<Course> courses = this.courseService.findByPeriod(period);
+
+        for (Course courseObject : courses) {
+            courseObject.add(linkTo(methodOn(CourseController.class).getById(courseObject.getId()))
+                    .withRel("get-course-by-id"));
+            courseObject.add(linkTo(methodOn(CourseController.class).getByName(courseObject.getName()))
+                    .withRel("get-course-by-name"));
+        }
+
+        ListResponseDto response = new ListResponseDto();
+        response.setObjects(courses);
+        response.setSelfLink(linkTo(methodOn(CourseController.class).getByPeriod(period)).withSelfRel());
+
+        return ResponseEntity.ok(response);
+
     }
 
     @PostMapping("/courses")
     public ResponseEntity<?> save(@Valid @RequestBody Course course) {
-        this.courseService.save(course);
-        return new ResponseEntity<>("Course created.", HttpStatus.CREATED);
+        Course courses = this.courseService.save(course);
+
+        courses.add(linkTo(methodOn(CourseController.class).getById(courses.getId()))
+                .withRel("get-course-by-id"));
+        courses.add(linkTo(methodOn(CourseController.class).getByPeriod(courses.getPeriod().name()))
+                .withRel("get-course-by-period"));
+        course.add(linkTo(methodOn(CourseController.class).getByName(course.getName()))
+                .withRel("get-course-by-name"));
+        courses.add(linkTo(methodOn(CourseController.class).getAll())
+                .withRel("get-all-courses"));
+
+        return new ResponseEntity<>(courses, HttpStatus.CREATED);
     }
 
     @PatchMapping("/courses/{id}")
@@ -73,9 +134,35 @@ public class CourseController {
         } else if (updateCount.get() > 1) {
             throw new MoreThanOneUpdateException();
         } else {
-            courseService.update(id, keys.get(0), values.get(0));
-            return new ResponseEntity<>(format("Course %s updated.", keys.get(0)), HttpStatus.OK);
+            Course courses = this.courseService.update(id, keys.get(0), values.get(0));
+
+            courses.add(linkTo(methodOn(CourseController.class).getById(courses.getId()))
+                    .withRel("get-course-by-id"));
+            courses.add(linkTo(methodOn(CourseController.class).getByPeriod(courses.getPeriod().name()))
+                    .withRel("get-course-by-period"));
+            courses.add(linkTo(methodOn(CourseController.class).getByName(courses.getName()))
+                    .withRel("get-course-by-name"));
+            courses.add(linkTo(methodOn(CourseController.class).getAll())
+                    .withRel("get-all-courses"));
+
+            return ResponseEntity.ok(courses);
         }
+    }
+
+    @PutMapping("/courses/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Course courses) {
+        Course course = this.courseService.update(id, courses);
+
+        courses.add(linkTo(methodOn(CourseController.class).getById(course.getId()))
+                .withRel("get-course-by-id"));
+        courses.add(linkTo(methodOn(CourseController.class).getByPeriod(course.getPeriod().name()))
+                .withRel("get-course-by-period"));
+        course.add(linkTo(methodOn(CourseController.class).getByName(course.getName()))
+                .withRel("get-course-by-name"));
+        courses.add(linkTo(methodOn(CourseController.class).getAll())
+                .withRel("get-all-courses"));
+
+        return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
 }

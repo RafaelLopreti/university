@@ -1,17 +1,18 @@
 package com.lopreti.university.domain.exception;
 
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.NO_VALID_FIELD_ERROR_CODE;
 import static java.lang.String.format;
 
 public class NoValidFieldException extends RuntimeException {
 
-    private String field;
+    protected String field;
 
     public NoValidFieldException(String field) {
         this.field = field;
     }
 
     public String getCode() {
-        return "UNICODE-009";
+        return NO_VALID_FIELD_ERROR_CODE.getCode();
     }
 
     public String getMessage() {

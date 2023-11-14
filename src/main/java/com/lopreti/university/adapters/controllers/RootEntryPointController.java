@@ -10,8 +10,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 public class RootEntryPointController {
 
-    private CourseController courseController;
-
     @GetMapping
     public RootEntryPointModel root() {
         RootEntryPointModel model = new RootEntryPointModel();

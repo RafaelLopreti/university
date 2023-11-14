@@ -35,24 +35,10 @@ public class GenerateJson {
         People people = new People();
 
         people.setId(2L);
-        people.setUsers(new Users(
-                2L,
-                "test@example.com",
-                "Abc@1234",
-                UserStatus.ACTIVE
-        ));
+        people.setUser(getUser());
         people.setName("John");
         people.setTaxpayerRegistry("123.456.789-00");
-        people.setAddress(new Address(
-                2L,
-                "street",
-                "number",
-                "city",
-                "neighborhood",
-                "12345678",
-                "country",
-                people.getUsers()
-        ));
+        people.setAddress(getAddress());
         people.setCategory(PeopleCategory.STUDENT);
         return people;
     }
@@ -77,7 +63,7 @@ public class GenerateJson {
         address.setNeighborhood("Neighborhood");
         address.setZipCode("00000000");
         address.setCountry("Country");
-        address.setUser(getPeople().getUsers());
+        address.setUser(getUser());
 
         return address;
     }

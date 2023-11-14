@@ -1,11 +1,13 @@
 package com.lopreti.university.domain.exception;
 
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.MORE_THAN_ONE_UPDATE_ERROR_CODE;
+
 public class MoreThanOneUpdateException extends RuntimeException {
 
     public MoreThanOneUpdateException() {}
 
     public String getCode() {
-        return "UNICODE-007";
+        return MORE_THAN_ONE_UPDATE_ERROR_CODE.getCode();
     }
 
     public String getMessage() {

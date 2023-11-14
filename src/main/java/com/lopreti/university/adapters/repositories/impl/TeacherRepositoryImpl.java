@@ -2,7 +2,6 @@ package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.TeacherJpaRepository;
 import com.lopreti.university.domain.entities.Teacher;
-import com.lopreti.university.domain.exception.StudentNotFoundException;
 import com.lopreti.university.domain.exception.TeacherNotFoundException;
 import com.lopreti.university.domain.ports.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     public Teacher findById(Long id) {
-        return teacherJpaRepository.findById(id).orElseThrow(TeacherNotFoundException::new);
+        return teacherJpaRepository.findById(id).orElseThrow(() -> new TeacherNotFoundException(id));
     }
 
     public List<Teacher> findAll() {

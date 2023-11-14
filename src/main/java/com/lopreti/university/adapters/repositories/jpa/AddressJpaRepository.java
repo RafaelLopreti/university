@@ -26,4 +26,6 @@ public interface AddressJpaRepository extends JpaRepository<Address, Long> {
     @Query(value = "SELECT * FROM Address WHERE country = ?1", nativeQuery = true)
     List<Address> findByCountry(String country);
 
+    @Query(value = "SELECT * FROM Address WHERE user_id = ?1", nativeQuery = true)
+    List<Address> findByUserId(Long id);
 }

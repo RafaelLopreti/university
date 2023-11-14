@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AddressRepositoryImpl implements AddressRepository {
@@ -51,6 +52,11 @@ public class AddressRepositoryImpl implements AddressRepository {
     @Override
     public List<Address> findByCountry(String country) {
         return addressJpaRepository.findByCountry(country);
+    }
+
+    @Override
+    public List<Address> findByUserId(Long id) {
+        return addressJpaRepository.findByUserId(id);
     }
 
     public Address save(Address address) {
