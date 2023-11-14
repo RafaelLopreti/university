@@ -1,11 +1,13 @@
 package com.lopreti.university.domain.exception;
 
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.EMAIL_ALREADY_EXISTS_ERROR_CODE;
+
 public class EmailAlreadyExistsException extends RuntimeException {
 
     public EmailAlreadyExistsException() {}
 
     public String getCode() {
-        return "UNICODE-014";
+        return EMAIL_ALREADY_EXISTS_ERROR_CODE.getCode();
     }
 
     public String getMessage() {

@@ -3,6 +3,7 @@ package com.lopreti.university.domain.ports.repositories;
 import com.lopreti.university.domain.entities.Address;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AddressRepository {
 
@@ -18,4 +19,5 @@ public interface AddressRepository {
 
     public List<Address> findByCountry(String country);
 
+    public List<Address> findByUserId(Long id);
 }

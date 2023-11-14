@@ -1,7 +1,6 @@
 package com.lopreti.university.adapters.repositories.jpa;
 
 import com.lopreti.university.domain.entities.Course;
-import com.lopreti.university.domain.valueObjects.Period;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

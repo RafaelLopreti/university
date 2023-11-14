@@ -3,13 +3,17 @@ package com.lopreti.university.domain.ports.repositories;
 import com.lopreti.university.domain.entities.People;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PeopleRepository {
 
-    public List<People> findByName(String peopleName);
+    Optional<List<People>> findByName(String peopleName);
 
-    public People findByRegistry(String taxpayerRegistry);
+    People findByRegistry(String taxpayerRegistry);
 
-    public List<People> findByAddressId(Long addressId);
+    Optional<People> findByAddressId(Long addressId);
 
+    Optional<People> findByUserId(Long userId);
+
+    List<People> findByCategory(String category);
 }

@@ -1,11 +1,13 @@
 package com.lopreti.university.domain.exception;
 
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.COURSE_NOT_FOUND_ERROR_CODE;
+
 public class CourseNotFoundException extends RuntimeException {
 
     public CourseNotFoundException() {}
 
     public String getCode() {
-        return "UNICODE-018";
+        return COURSE_NOT_FOUND_ERROR_CODE.getCode();
     }
 
     public String getMessage() {

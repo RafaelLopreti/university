@@ -2,10 +2,18 @@ package com.lopreti.university.domain.entities;
 
 import com.lopreti.university.domain.valueObjects.PeopleCategory;
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-public class People {
+public class People extends RepresentationModel<People> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,14 +21,12 @@ public class People {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    public Users users;
+    public Users user;
 
     @Column
-    @NotBlank(message = "Name cannot be empty")
     public String name;
 
     @Column
-    @NotBlank(message = "Taxpayer Registry cannot be empty")
     public String taxpayerRegistry;
 
     @OneToOne
@@ -30,62 +36,8 @@ public class People {
     @Enumerated(EnumType.STRING)
     private PeopleCategory category;
 
-    public People() {
-    }
-
-    public People(Long id, Users users, String name, String taxpayerRegistry, Address address) {
-        this.id = id;
-        this.users = users;
-        this.name = name;
-        this.taxpayerRegistry = taxpayerRegistry;
-        this.address = address;
-    }
-
-    public void setId(Long id) {
+    public People(Long id) {
         this.id = id;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setTaxpayerRegistry(String taxpayerRegistry) {
-        this.taxpayerRegistry = taxpayerRegistry;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setCategory(PeopleCategory category) {
-        this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getTaxpayerRegistry() {
-        return taxpayerRegistry;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public PeopleCategory getCategory() {
-        return category;
-    }
 }

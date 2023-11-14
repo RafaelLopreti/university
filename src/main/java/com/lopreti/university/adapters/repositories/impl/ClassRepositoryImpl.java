@@ -2,7 +2,6 @@ package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.ClassJpaRepository;
 import com.lopreti.university.domain.entities.Classes;
-import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.exception.ClassesNotFoundException;
 import com.lopreti.university.domain.ports.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class ClassRepositoryImpl implements ClassRepository {
     private ClassJpaRepository classJpaRepository;
 
     public Classes findById(Long id) {
-        return classJpaRepository.findById(id).orElseThrow(ClassesNotFoundException::new);
+        return classJpaRepository.findById(id).orElseThrow(() -> new ClassesNotFoundException(id));
     }
 
     public List<Classes> findAll() {

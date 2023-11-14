@@ -1,11 +1,13 @@
 package com.lopreti.university.domain.exception;
 
+import static com.lopreti.university.domain.valueObjects.GlobalErrorCodes.PASSWORD_INVALID_FORMAT_ERROR_CODE;
+
 public class PasswordInvalidFormatException extends RuntimeException {
 
     public PasswordInvalidFormatException() {}
 
     public String getCode() {
-        return "UNICODE-016";
+        return PASSWORD_INVALID_FORMAT_ERROR_CODE.getCode();
     }
 
     public String getMessage() {

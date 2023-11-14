@@ -8,6 +8,7 @@ import com.lopreti.university.domain.exception.StudentAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class StudentService {
@@ -46,9 +47,22 @@ public class StudentService {
         if (classRepository.existsByCode(classCode).isPresent()) {
             student.setClassCode(classCode);
             return studentRepository.save(student);
-        } // TODO CALL CLASS SERVICE
+        }
 
-        throw new ClassesNotFoundException();
+        throw new ClassesNotFoundException(classCode);
+    }
+
+    public Student update(Long id, Student studentBody) {
+        Student student = findById(id);
+
+        if (classRepository.existsByCode(studentBody.getClassCode()).isPresent()) {
+            student.setClassCode(studentBody.getClassCode());
+        } else {
+            throw new ClassesNotFoundException(studentBody.getClassCode());
+        }
+        student.setPeople(Objects.requireNonNullElse(studentBody.getPeople(), student.getPeople()));
+
+        return studentRepository.save(student);
     }
 
     public boolean existsById(Long id) {

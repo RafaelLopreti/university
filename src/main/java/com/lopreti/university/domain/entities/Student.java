@@ -1,10 +1,10 @@
 package com.lopreti.university.domain.entities;
 
-import com.lopreti.university.domain.valueObjects.PeopleCategory;
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Entity
-public class Student {
+public class Student extends RepresentationModel<Student> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

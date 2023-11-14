@@ -3,9 +3,12 @@ package com.lopreti.university.domain.services;
 import com.lopreti.university.adapters.repositories.impl.UsersRepositoryImpl;
 import com.lopreti.university.domain.entities.Users;
 import com.lopreti.university.domain.exception.*;
+import com.lopreti.university.domain.valueObjects.UserStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,16 +56,30 @@ public class UserService {
         return usersRepository.save(user);
     }
 
+    public Users update(Long id, Users usersBody) {
+        Users user = findById(id);
+
+        user.setEmail(Objects.requireNonNullElse(usersBody.getEmail(), user.getEmail()));
+        user.setPassword(Objects.requireNonNullElse(usersBody.getPassword(), user.getPassword()));
+        user.setStatus(Objects.requireNonNullElse(usersBody.getStatus(), user.getStatus()));
+
+        return usersRepository.save(user);
+    }
+
     public Users save(Users user) {
-        if (!existsById(user.getId())) {
+        if (existsByEmail(user.getEmail()).isEmpty()) {
             validFormat(user.getEmail(), user.getPassword());
             return usersRepository.save(user);
         }
-        throw new UserAlreadyExistsException();
+        throw new EmailAlreadyExistsException();
     }
 
     public boolean existsById(Long id) {
         return usersRepository.existsById(id);
+    }
+
+    public Optional<Users> existsByEmail(String email) {
+        return usersRepository.existsByEmail(email);
     }
 
     public void validFormat(String email, String password) {

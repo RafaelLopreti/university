@@ -1,20 +1,27 @@
 package com.lopreti.university.domain.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-public class Classes {
+public class Classes extends RepresentationModel<Classes> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    @NotBlank(message = "Class code cannot be empty")
     private String code = "UNI-000";
 
     @ManyToMany
@@ -25,35 +32,8 @@ public class Classes {
     @JoinColumn(name = "subjects_id", nullable = false)
     private List<Subjects> subjectsList = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Classes(Long id) {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public List<People> getPeopleList() {
-        return peopleList;
-    }
-
-    public void setPeopleList(List<People> peopleList) {
-        this.peopleList = peopleList;
-    }
-
-    public List<Subjects> getSubjectsList() {
-        return subjectsList;
-    }
-
-    public void setSubjectsList(List<Subjects> subjectsList) {
-        this.subjectsList = subjectsList;
-    }
 }

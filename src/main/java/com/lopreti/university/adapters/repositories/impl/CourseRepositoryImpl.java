@@ -3,9 +3,7 @@ package com.lopreti.university.adapters.repositories.impl;
 import com.lopreti.university.adapters.repositories.jpa.CourseJpaRepository;
 import com.lopreti.university.domain.entities.Course;
 import com.lopreti.university.domain.exception.CourseNotFoundException;
-import com.lopreti.university.domain.exception.PeriodNotFoundException;
 import com.lopreti.university.domain.ports.repositories.CourseRepository;
-import com.lopreti.university.domain.valueObjects.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

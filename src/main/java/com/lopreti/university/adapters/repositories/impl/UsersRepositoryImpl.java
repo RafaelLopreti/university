@@ -37,7 +37,7 @@ public class UsersRepositoryImpl implements UsersRepository {
         return usersJpaRepository.existsById(id);
     }
 
-    public Optional<String> existsByEmail(String email) {
+    public Optional<Users> existsByEmail(String email) {
         return usersJpaRepository.existsByEmail(email);
     }
 

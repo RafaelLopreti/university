@@ -1,12 +1,16 @@
 package com.lopreti.university.domain.services;
 
 import com.lopreti.university.adapters.repositories.impl.CourseRepositoryImpl;
+import com.lopreti.university.adapters.repositories.impl.SubjectsRepositoryImpl;
 import com.lopreti.university.domain.entities.Course;
+import com.lopreti.university.domain.entities.Subjects;
 import com.lopreti.university.domain.exception.*;
 import com.lopreti.university.domain.valueObjects.Period;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -14,8 +18,11 @@ public class CourseService {
 
     private final CourseRepositoryImpl courseRepository;
 
-    public CourseService(CourseRepositoryImpl courseRepository) {
+    private final SubjectsRepositoryImpl subjectsRepository;
+
+    public CourseService(CourseRepositoryImpl courseRepository, SubjectsRepositoryImpl subjectsRepository) {
         this.courseRepository = courseRepository;
+        this.subjectsRepository = subjectsRepository;
     }
 
     public List<Course> findAll() {
@@ -43,10 +50,10 @@ public class CourseService {
     }
 
     public Course save(Course course) {
-        if (existsByName(course.getName()).isEmpty() && !existsById(course.getId())) {
+        if (existsByName(course.getName()).isEmpty()) {
             return courseRepository.save(course);
         }
-        throw new CourseAlreadyExistsException();
+        throw new CourseAlreadyExistsException(course.getName());
     }
 
     public Course update(Long id, String key, String value) {
@@ -61,6 +68,27 @@ public class CourseService {
         } else {
             throw new ValueCannotBeEmptyException();
         }
+
+        return courseRepository.save(course);
+    }
+
+    public Course update(Long id, Course courseBody) {
+        Course course = findById(id);
+        List<Subjects> subjectsList = new ArrayList<>();
+
+        for (Subjects subject : courseBody.getSubjectsList()) {
+            Long subjectId = subject.getId();
+            Subjects subjectsOptional = subjectsRepository.findById(subjectId);
+            if (subjectsOptional != null) {
+                subjectsList.add(subjectsOptional);
+            } else {
+                throw new SubjectsNotFoundException(subjectId);
+            }
+        }
+
+        course.setName(Objects.requireNonNullElse(courseBody.getName(), course.getName()));
+        course.setPeriod(Objects.requireNonNullElse(courseBody.getPeriod(), course.getPeriod()));
+        course.setSubjectsList(subjectsList);
 
         return courseRepository.save(course);
     }
