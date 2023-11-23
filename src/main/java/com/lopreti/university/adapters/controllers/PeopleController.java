@@ -2,8 +2,8 @@ package com.lopreti.university.adapters.controllers;
 
 import com.lopreti.university.domain.dtos.ListResponseDto;
 import com.lopreti.university.domain.entities.People;
-import com.lopreti.university.domain.exception.MoreThanOneUpdateException;
-import com.lopreti.university.domain.exception.WithoutFieldUpdateException;
+import com.lopreti.university.domain.exception.others.MoreThanOneUpdateException;
+import com.lopreti.university.domain.exception.others.WithoutFieldUpdateException;
 import com.lopreti.university.domain.services.PeopleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

@@ -2,7 +2,7 @@ package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.CourseJpaRepository;
 import com.lopreti.university.domain.entities.Course;
-import com.lopreti.university.domain.exception.CourseNotFoundException;
+import com.lopreti.university.domain.exception.course.CourseNotFoundException;
 import com.lopreti.university.domain.ports.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

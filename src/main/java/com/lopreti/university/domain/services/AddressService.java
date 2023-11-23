@@ -3,10 +3,10 @@ package com.lopreti.university.domain.services;
 import com.lopreti.university.adapters.repositories.impl.AddressRepositoryImpl;
 import com.lopreti.university.domain.entities.Address;
 import com.lopreti.university.domain.entities.Users;
-import com.lopreti.university.domain.exception.NoValidFieldException;
-import com.lopreti.university.domain.exception.UserAddressExistsException;
-import com.lopreti.university.domain.exception.UserIsRequiredException;
-import com.lopreti.university.domain.exception.ValueCannotBeEmptyException;
+import com.lopreti.university.domain.exception.others.NoValidFieldException;
+import com.lopreti.university.domain.exception.user.UserAddressExistsException;
+import com.lopreti.university.domain.exception.user.UserIsRequiredException;
+import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

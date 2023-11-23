@@ -7,7 +7,12 @@ import com.lopreti.university.domain.dtos.ListRequestDto;
 import com.lopreti.university.domain.entities.Classes;
 import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.entities.Subjects;
-import com.lopreti.university.domain.exception.*;
+import com.lopreti.university.domain.exception.classes.ClassAlreadyExistsException;
+import com.lopreti.university.domain.exception.classes.ClassNotFoundException;
+import com.lopreti.university.domain.exception.others.NoValidFieldException;
+import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyException;
+import com.lopreti.university.domain.exception.people.PeopleNotFoundException;
+import com.lopreti.university.domain.exception.subject.SubjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,7 +48,7 @@ public class ClassesService {
         if (classRepository.existsByCode(classCode).isPresent()) {
             return classRepository.findByCode(classCode);
         }
-        throw new ClassesNotFoundException(classCode);
+        throw new ClassNotFoundException(classCode);
     }
 
     public Classes save(Classes classes) {
@@ -78,7 +83,7 @@ public class ClassesService {
         List<Long> peopleList = requestList.getPeopleList();
 
         if (classes == null) {
-            throw new ClassesNotFoundException(classCode);
+            throw new ClassNotFoundException(classCode);
         }
 
         List<People> oldList = new ArrayList<>(classes.getPeopleList());
@@ -101,7 +106,7 @@ public class ClassesService {
         List<Long> subjectList = requestList.getSubjectList();
 
         if (classes == null) {
-            throw new ClassesNotFoundException(classCode);
+            throw new ClassNotFoundException(classCode);
         }
 
         List<Subjects> oldList = new ArrayList<>(classes.getSubjectsList());
@@ -139,7 +144,7 @@ public class ClassesService {
             if (subjectsOptional != null) {
                 subjectsList.add(subjectsOptional);
             } else {
-                throw new SubjectsNotFoundException(subjectId);
+                throw new SubjectNotFoundException(subjectId);
             }
         }
 
