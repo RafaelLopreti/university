@@ -2,13 +2,12 @@ package com.lopreti.university.adapters.repositories.impl;
 
 import com.lopreti.university.adapters.repositories.jpa.SubjectsJpaRepository;
 import com.lopreti.university.domain.entities.Subjects;
-import com.lopreti.university.domain.exception.SubjectsNotFoundException;
+import com.lopreti.university.domain.exception.subject.SubjectNotFoundException;
 import com.lopreti.university.domain.ports.repositories.SubjectsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class SubjectsRepositoryImpl implements SubjectsRepository {
@@ -17,7 +16,7 @@ public class SubjectsRepositoryImpl implements SubjectsRepository {
     private SubjectsJpaRepository subjectsJpaRepository;
 
     public Subjects findById(Long id) {
-        return subjectsJpaRepository.findById(id).orElseThrow(() -> new SubjectsNotFoundException(id));
+        return subjectsJpaRepository.findById(id).orElseThrow(() -> new SubjectNotFoundException(id));
     }
 
     public List<Subjects> findAll() {

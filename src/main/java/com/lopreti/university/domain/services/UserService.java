@@ -2,8 +2,11 @@ package com.lopreti.university.domain.services;
 
 import com.lopreti.university.adapters.repositories.impl.UsersRepositoryImpl;
 import com.lopreti.university.domain.entities.Users;
-import com.lopreti.university.domain.exception.*;
-import com.lopreti.university.domain.valueObjects.UserStatus;
+import com.lopreti.university.domain.exception.others.NoValidFieldException;
+import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyException;
+import com.lopreti.university.domain.exception.user.email.EmailAlreadyExistsException;
+import com.lopreti.university.domain.exception.user.email.EmailInvalidFormatException;
+import com.lopreti.university.domain.exception.user.password.PasswordInvalidFormatException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

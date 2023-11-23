@@ -4,7 +4,12 @@ import com.lopreti.university.adapters.repositories.impl.CourseRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.SubjectsRepositoryImpl;
 import com.lopreti.university.domain.entities.Course;
 import com.lopreti.university.domain.entities.Subjects;
-import com.lopreti.university.domain.exception.*;
+import com.lopreti.university.domain.exception.course.CourseAlreadyExistsException;
+import com.lopreti.university.domain.exception.course.CourseNotFoundException;
+import com.lopreti.university.domain.exception.course.CoursePeriodNotFoundException;
+import com.lopreti.university.domain.exception.others.NoValidFieldException;
+import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyException;
+import com.lopreti.university.domain.exception.subject.SubjectNotFoundException;
 import com.lopreti.university.domain.valueObjects.Period;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +50,7 @@ public class CourseService {
                 }
                 yield courseRepository.findByPeriod(period);
             }
-            default -> throw new PeriodNotFoundException(period);
+            default -> throw new CoursePeriodNotFoundException(period);
         };
     }
 
@@ -82,7 +87,7 @@ public class CourseService {
             if (subjectsOptional != null) {
                 subjectsList.add(subjectsOptional);
             } else {
-                throw new SubjectsNotFoundException(subjectId);
+                throw new SubjectNotFoundException(subjectId);
             }
         }
 

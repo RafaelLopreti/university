@@ -3,8 +3,8 @@ package com.lopreti.university.domain.services;
 import com.lopreti.university.adapters.repositories.impl.ClassRepositoryImpl;
 import com.lopreti.university.adapters.repositories.impl.StudentRepositoryImpl;
 import com.lopreti.university.domain.entities.Student;
-import com.lopreti.university.domain.exception.ClassesNotFoundException;
-import com.lopreti.university.domain.exception.StudentAlreadyExistsException;
+import com.lopreti.university.domain.exception.classes.ClassNotFoundException;
+import com.lopreti.university.domain.exception.student.StudentAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class StudentService {
             return studentRepository.save(student);
         }
 
-        throw new ClassesNotFoundException(classCode);
+        throw new ClassNotFoundException(classCode);
     }
 
     public Student update(Long id, Student studentBody) {
@@ -58,7 +58,7 @@ public class StudentService {
         if (classRepository.existsByCode(studentBody.getClassCode()).isPresent()) {
             student.setClassCode(studentBody.getClassCode());
         } else {
-            throw new ClassesNotFoundException(studentBody.getClassCode());
+            throw new ClassNotFoundException(studentBody.getClassCode());
         }
         student.setPeople(Objects.requireNonNullElse(studentBody.getPeople(), student.getPeople()));
 

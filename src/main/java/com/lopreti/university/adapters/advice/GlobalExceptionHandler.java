@@ -1,7 +1,34 @@
 package com.lopreti.university.adapters.advice;
 
 import com.lopreti.university.domain.dtos.ErrorResponseDto;
-import com.lopreti.university.domain.exception.*;
+import com.lopreti.university.domain.exception.address.AddressAlreadyExistsException;
+import com.lopreti.university.domain.exception.address.AddressNotFoundException;
+import com.lopreti.university.domain.exception.address.AddressUserExistsException;
+import com.lopreti.university.domain.exception.classes.ClassAlreadyExistsException;
+import com.lopreti.university.domain.exception.classes.ClassNotFoundException;
+import com.lopreti.university.domain.exception.course.CourseAlreadyExistsException;
+import com.lopreti.university.domain.exception.course.CourseNotFoundException;
+import com.lopreti.university.domain.exception.course.CoursePeriodNotFoundException;
+import com.lopreti.university.domain.exception.others.MoreThanOneUpdateException;
+import com.lopreti.university.domain.exception.others.NoValidFieldException;
+import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyException;
+import com.lopreti.university.domain.exception.others.WithoutFieldUpdateException;
+import com.lopreti.university.domain.exception.student.StudentAlreadyExistsException;
+import com.lopreti.university.domain.exception.student.StudentNotFoundException;
+import com.lopreti.university.domain.exception.subject.SubjectAlreadyExistsException;
+import com.lopreti.university.domain.exception.subject.SubjectNotFoundException;
+import com.lopreti.university.domain.exception.teacher.TeacherAlreadyExistsException;
+import com.lopreti.university.domain.exception.teacher.TeacherNotFoundException;
+import com.lopreti.university.domain.exception.user.UserNotFoundException;
+import com.lopreti.university.domain.exception.user.UserStatusNotFoundException;
+import com.lopreti.university.domain.exception.user.email.EmailAlreadyExistsException;
+import com.lopreti.university.domain.exception.user.email.EmailInvalidFormatException;
+import com.lopreti.university.domain.exception.people.PeopleCategoryNotFoundException;
+import com.lopreti.university.domain.exception.people.PeopleNotFoundException;
+import com.lopreti.university.domain.exception.people.PeopleUserExistsException;
+import com.lopreti.university.domain.exception.user.UserAddressExistsException;
+import com.lopreti.university.domain.exception.user.UserIsRequiredException;
+import com.lopreti.university.domain.exception.user.password.PasswordInvalidFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -31,8 +58,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ClassesNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleClassNotFoundException(ClassesNotFoundException ex) {
+    @ExceptionHandler(ClassNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleClassNotFoundException(ClassNotFoundException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
@@ -106,8 +133,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(PeriodNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handlePeriodNotFoundException(PeriodNotFoundException ex) {
+    @ExceptionHandler(CoursePeriodNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handlePeriodNotFoundException(CoursePeriodNotFoundException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
@@ -121,8 +148,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(SubjectsNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleSubjectsNotFoundException(SubjectsNotFoundException ex) {
+    @ExceptionHandler(SubjectNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleSubjectsNotFoundException(SubjectNotFoundException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 

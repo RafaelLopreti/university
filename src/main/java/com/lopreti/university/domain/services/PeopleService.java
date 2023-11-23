@@ -4,7 +4,15 @@ import com.lopreti.university.adapters.repositories.impl.PeopleRepositoryImpl;
 import com.lopreti.university.domain.entities.Address;
 import com.lopreti.university.domain.entities.People;
 import com.lopreti.university.domain.entities.Users;
-import com.lopreti.university.domain.exception.*;
+import com.lopreti.university.domain.exception.address.AddressNotFoundException;
+import com.lopreti.university.domain.exception.address.AddressUserExistsException;
+import com.lopreti.university.domain.exception.others.NoValidFieldException;
+import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyException;
+import com.lopreti.university.domain.exception.people.PeopleAlreadyExistsException;
+import com.lopreti.university.domain.exception.people.PeopleCategoryNotFoundException;
+import com.lopreti.university.domain.exception.people.PeopleNotFoundException;
+import com.lopreti.university.domain.exception.people.PeopleUserExistsException;
+import com.lopreti.university.domain.exception.user.UserNotFoundException;
 import com.lopreti.university.domain.valueObjects.PeopleCategory;
 import org.springframework.stereotype.Service;
 

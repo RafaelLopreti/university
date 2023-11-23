@@ -4,9 +4,9 @@ import com.lopreti.university.adapters.repositories.impl.SubjectsRepositoryImpl;
 import com.lopreti.university.domain.dtos.ListRequestDto;
 import com.lopreti.university.domain.entities.Subjects;
 import com.lopreti.university.domain.entities.Teacher;
-import com.lopreti.university.domain.exception.SubjectAlreadyExistsException;
-import com.lopreti.university.domain.exception.SubjectsNotFoundException;
-import com.lopreti.university.domain.exception.TeacherNotFoundException;
+import com.lopreti.university.domain.exception.subject.SubjectAlreadyExistsException;
+import com.lopreti.university.domain.exception.subject.SubjectNotFoundException;
+import com.lopreti.university.domain.exception.teacher.TeacherNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class SubjectService {
             return subject;
         }
 
-        throw new SubjectsNotFoundException(name);
+        throw new SubjectNotFoundException(name);
     }
 
     public List<Subjects> findAll(){
@@ -58,7 +58,7 @@ public class SubjectService {
             return subjectsRepository.save(subject);
         }
 
-        throw new SubjectsNotFoundException(id);
+        throw new SubjectNotFoundException(id);
     }
 
     public Subjects updateTeacherList(Long id, ListRequestDto requestList) {
@@ -66,7 +66,7 @@ public class SubjectService {
         List<Long> peopleList = requestList.getTeacherList();
 
         if (subject == null) {
-            throw new SubjectsNotFoundException(id);
+            throw new SubjectNotFoundException(id);
         }
 
         List<Teacher> updatedTeacherList = new ArrayList<>();

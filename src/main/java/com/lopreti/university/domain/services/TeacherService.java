@@ -2,8 +2,8 @@ package com.lopreti.university.domain.services;
 
 import com.lopreti.university.adapters.repositories.impl.TeacherRepositoryImpl;
 import com.lopreti.university.domain.entities.Teacher;
-import com.lopreti.university.domain.exception.ClassesNotFoundException;
-import com.lopreti.university.domain.exception.TeacherAlreadyExistsException;
+import com.lopreti.university.domain.exception.classes.ClassNotFoundException;
+import com.lopreti.university.domain.exception.teacher.TeacherAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class TeacherService {
             return teacherRepository.save(teacher);
         }
 
-        throw new ClassesNotFoundException(classCode);
+        throw new ClassNotFoundException(classCode);
     }
 
     public Teacher update(Long id, Teacher teacherBody) {
@@ -58,7 +58,7 @@ public class TeacherService {
         if (classesService.existsByCode(teacherClassCode).isPresent()) {
             teacher.setClassCode(teacherClassCode);
         } else {
-            throw new ClassesNotFoundException(teacherClassCode);
+            throw new ClassNotFoundException(teacherClassCode);
         }
         teacher.setPeople(Objects.requireNonNullElse(teacherBody.getPeople(), teacher.getPeople()));
 
