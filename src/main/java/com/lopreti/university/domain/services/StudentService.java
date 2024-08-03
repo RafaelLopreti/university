@@ -35,7 +35,7 @@ public class StudentService {
     }
 
     public Student save(Student student) {
-        if (!existsById(student.getId())) {
+        if (!existsByClassAndPeopleId(student.getClassCode(), student.getPeople().getId())) {
             return studentRepository.save(student);
         }
         throw new StudentAlreadyExistsException();
@@ -65,8 +65,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public boolean existsById(Long id) {
-        return studentRepository.existsById(id);
+    public boolean existsByClassAndPeopleId(String classCode, Long peopleId) {
+        return studentRepository.findByClassAndPeopleId(classCode, peopleId);
     }
 
 }
