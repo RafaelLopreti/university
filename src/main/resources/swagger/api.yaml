@@ -1,0 +1,284 @@
+openapi: "3.0.0"
+info:
+  title: University API
+  version: 0.1.0
+  description: This API is intended for use by students, teachers and university administrators.
+
+servers:
+  - url: http://localhost:8080/api/v1/university
+
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      operationId: getUsers
+      responses:
+        200:
+          description: Returns a list of users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Users'
+    post:
+      summary: Save a new user.
+      operationId: saveUser
+      requestBody:
+        description: Save a new user.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        201:
+          description: Created
+  /users/{id}:
+    get:
+      summary: Returns a user by ID.
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        200:
+          description: Returns a user by ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+    put:
+      summary: Updates a user by ID.
+      operationId: updateUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+        - name: body
+          in: query
+          required: true
+          description: User data to be updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUpdateFields'
+      responses:
+        200:
+          description: Ok
+    patch:
+      summary: Update a user partially by ID.
+      operationId: updateUserPartiallyById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+        - name: email
+          in: query
+          description: Updated email of the user.
+          schema:
+            type: string
+            format: email
+        - name: password
+          in: query
+          description: Updated password of the user.
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Updated status of the user.
+          schema:
+            $ref: '#/components/schemas/UserStatus'
+      responses:
+        200:
+          description: Ok
+  /users/{email}:
+    get:
+      summary: Returns a user by e-mail.
+      operationId: getUserByEmail
+      parameters:
+        - name: email
+          in: path
+          required: true
+          description: User e-mail.
+          schema:
+            type : string
+      responses:
+        200:
+          description: Returns a user by e-mail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+components:
+  schemas:
+    Address:
+      type: object
+      required:
+        - street
+        - number
+        - city
+        - neighborhood
+        - zipCode
+        - country
+        - user
+      properties:
+        id:
+          type: integer
+          format: int64
+        street:
+          type: string
+        number:
+          type: string
+        city:
+          type: string
+        neighborhood:
+          type: string
+        zipCode:
+          type: string
+        country:
+          type: string
+        user:
+          $ref: '#/components/schemas/Users'
+    Classes:
+      type: object
+      required:
+        - code
+        - peopleList
+        - subjectsList
+      properties:
+        id:
+          type: integer
+          format: int64
+        peopleList:
+          type: array
+          items:
+            $ref: '#/components/schemas/People'
+        subjectsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subjects'
+    Course:
+      type: object
+      required:
+        - name
+        - period
+        - subjectsList
+      properties:
+        id:
+          type: integer
+          format: int64
+        period:
+          $ref: '#/components/schemas/Period'
+        subjectsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subjects'
+    People:
+      type: object
+      required:
+        - user
+        - name
+        - taxpayerRegistry
+        - address
+      properties:
+        id:
+          type: integer
+          format: int64
+        user:
+          $ref: '#/components/schemas/Users'
+        name:
+          type: string
+        taxpayerRegistry:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Student:
+      type: object
+      required:
+        - classCode
+        - people
+      properties:
+        id:
+          type: integer
+          format: int64
+        classCode:
+          type: string
+        people:
+          $ref: '#/components/schemas/People'
+    Subjects:
+      type: object
+      required:
+        - name
+        - teacherList
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        teacherList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Teacher'
+    Teacher:
+      type: object
+      required:
+        - people
+        - classCode
+      properties:
+        id:
+          type: integer
+          format: int64
+        people:
+          $ref: '#/components/schemas/People'
+        classCode:
+          type: string
+    Users:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+        password:
+          type: string
+        status:
+          $ref: '#/components/schemas/UserStatus'
+    UserStatus:
+      type: string
+      enum: [ACTIVE, INACTIVE]
+      default: ACTIVE
+    Period:
+      type: string
+      enum: [MORNING, AFTERNOON, NIGHT]
+    UserUpdateFields:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        status:
+          $ref: '#/components/schemas/UserStatus'
