@@ -1,8 +1,16 @@
 package com.lopreti.university.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Student extends RepresentationModel<Student> {
 
@@ -17,36 +25,8 @@ public class Student extends RepresentationModel<Student> {
     @JoinColumn(name = "people_id", nullable = false)
     private People people;
 
-    public void setClassCode(String classCode) {
-        this.classCode = classCode;
-    }
-
-    public Student() {}
-
-    public Student(Long id, String classCode, People people) {
+    public Student(Long id) {
         this.id = id;
-        this.classCode = classCode;
-        this.people = people;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getClassCode() {
-        return classCode;
-    }
-
-    public People getPeople() {
-        return people;
-    }
-
-    public void setPeople(People people) {
-        this.people = people;
     }
 
 }
