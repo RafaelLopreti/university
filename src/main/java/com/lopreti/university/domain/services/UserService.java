@@ -7,6 +7,7 @@ import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyExceptio
 import com.lopreti.university.domain.exception.user.email.EmailAlreadyExistsException;
 import com.lopreti.university.domain.exception.user.email.EmailInvalidFormatException;
 import com.lopreti.university.domain.exception.user.password.PasswordInvalidFormatException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +44,10 @@ public class UserService {
         return usersRepository.findByEmail(email);
     }
 
+    public Optional<Users> findToLogin(String email, String password) {
+        return usersRepository.findToLogin(email, password);
+    }
+
     public Users update(Long id, String key, String value) {
         Users user = findById(id);
 
@@ -75,10 +80,6 @@ public class UserService {
             return usersRepository.save(user);
         }
         throw new EmailAlreadyExistsException();
-    }
-
-    public boolean existsById(Long id) {
-        return usersRepository.existsById(id);
     }
 
     public Optional<Users> existsByEmail(String email) {

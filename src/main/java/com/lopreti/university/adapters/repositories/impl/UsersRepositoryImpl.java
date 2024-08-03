@@ -21,6 +21,11 @@ public class UsersRepositoryImpl implements UsersRepository {
         return usersJpaRepository.findByEmail(email);
     }
 
+    @Override
+    public Optional<Users> findToLogin(String email, String password) {
+        return usersJpaRepository.findToLogin(email, password);
+    }
+
     public Users findById(Long id) {
         return usersJpaRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
@@ -31,10 +36,6 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     public Users save(Users user) {
         return usersJpaRepository.save(user);
-    }
-
-    public boolean existsById(Long id) {
-        return usersJpaRepository.existsById(id);
     }
 
     public Optional<Users> existsByEmail(String email) {
