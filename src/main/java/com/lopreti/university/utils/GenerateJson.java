@@ -1,7 +1,12 @@
 package com.lopreti.university.utils;
 
 import com.google.gson.Gson;
-import com.lopreti.university.domain.entities.*;
+import com.lopreti.university.domain.entities.Address;
+import com.lopreti.university.domain.entities.Classes;
+import com.lopreti.university.domain.entities.Course;
+import com.lopreti.university.domain.entities.People;
+import com.lopreti.university.domain.entities.Student;
+import com.lopreti.university.domain.entities.Users;
 import com.lopreti.university.domain.valueObjects.PeopleCategory;
 import com.lopreti.university.domain.valueObjects.Period;
 import com.lopreti.university.domain.valueObjects.UserStatus;

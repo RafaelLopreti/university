@@ -3,7 +3,6 @@ package com.lopreti.university.domain.ports.repositories;
 import com.lopreti.university.domain.entities.Address;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AddressRepository {
 

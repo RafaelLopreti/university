@@ -112,6 +112,7 @@ public class PeopleService {
             switch (key) {
                 case "name" -> people.setName(value);
                 case "taxpayer" -> people.setTaxpayerRegistry(value);
+                case "profileImage" -> people.setProfileImage(value);
                 case "address" -> {
                     Long addressId = Long.parseLong(value);
                     validateAddressUser(addressId);
@@ -150,6 +151,7 @@ public class PeopleService {
         people.setAddress(Objects.requireNonNullElse(peopleBody.getAddress(), people.getAddress()));
         people.setUser(Objects.requireNonNullElse(peopleBody.getUser(), people.getUser()));
         people.setCategory(Objects.requireNonNullElse(peopleBody.getCategory(), people.getCategory()));
+        people.setProfileImage(Objects.requireNonNullElse(peopleBody.getProfileImage(), people.getProfileImage()));
 
         return save(people);
     }

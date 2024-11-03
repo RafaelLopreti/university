@@ -18,7 +18,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Users findByEmail(String email) {
-        return usersJpaRepository.findByEmail(email);
+        return usersJpaRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
