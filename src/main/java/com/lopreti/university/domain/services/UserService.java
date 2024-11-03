@@ -8,6 +8,7 @@ import com.lopreti.university.domain.exception.user.email.EmailAlreadyExistsExce
 import com.lopreti.university.domain.exception.user.email.EmailInvalidFormatException;
 import com.lopreti.university.domain.exception.user.password.PasswordInvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,9 @@ import java.util.regex.Pattern;
 public class UserService {
 
     private final UsersRepositoryImpl usersRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
@@ -36,7 +40,7 @@ public class UserService {
         return usersRepository.findById(id);
     }
 
-    public List<Users> findAll(){
+    public List<Users> findAll() {
         return usersRepository.findAll();
     }
 
@@ -45,7 +49,16 @@ public class UserService {
     }
 
     public Optional<Users> findToLogin(String email, String password) {
-        return usersRepository.findToLogin(email, password);
+        Optional<Users> userOptional = usersRepository.existsByEmail(email);
+
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
+                return userOptional;
+            }
+        }
+
+        return Optional.empty();
     }
 
     public Users update(Long id, String key, String value) {
@@ -54,7 +67,7 @@ public class UserService {
         if (!value.isEmpty()) {
             switch (key) {
                 case "email" -> user.setEmail(value);
-                case "password" -> user.setPassword(value);
+                case "password" -> user.setPassword(passwordEncoder(value));
                 default -> throw new NoValidFieldException(key);
             }
         } else {
@@ -68,7 +81,7 @@ public class UserService {
         Users user = findById(id);
 
         user.setEmail(Objects.requireNonNullElse(usersBody.getEmail(), user.getEmail()));
-        user.setPassword(Objects.requireNonNullElse(usersBody.getPassword(), user.getPassword()));
+        user.setPassword(Objects.requireNonNullElse(passwordEncoder(usersBody.getPassword()), user.getPassword()));
         user.setStatus(Objects.requireNonNullElse(usersBody.getStatus(), user.getStatus()));
 
         return usersRepository.save(user);
@@ -77,6 +90,7 @@ public class UserService {
     public Users save(Users user) {
         if (existsByEmail(user.getEmail()).isEmpty()) {
             validFormat(user.getEmail(), user.getPassword());
+            user.setPassword(passwordEncoder(user.getPassword()));
             return usersRepository.save(user);
         }
         throw new EmailAlreadyExistsException();
@@ -87,18 +101,19 @@ public class UserService {
     }
 
     public void validFormat(String email, String password) {
-
-        if (email == null || password == null) {email = ""; password = "";}
-
-        Matcher matcherEmail = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        Matcher matcherEmail = VALID_EMAIL_ADDRESS_REGEX.matcher(email == null ? "" : email);
         if (!matcherEmail.find()) {
             throw new EmailInvalidFormatException();
         }
 
-        Matcher matcherPassword = VALID_PASSWORD_REGEX.matcher(password);
+        Matcher matcherPassword = VALID_PASSWORD_REGEX.matcher(password == null ? "" : password);
         if (!matcherPassword.find()) {
             throw new PasswordInvalidFormatException();
         }
+    }
+
+    private String passwordEncoder(String password) {
+        return bCryptPasswordEncoder.encode(password);
     }
 
 }

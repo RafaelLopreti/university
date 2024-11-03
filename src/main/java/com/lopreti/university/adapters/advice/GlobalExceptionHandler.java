@@ -13,21 +13,21 @@ import com.lopreti.university.domain.exception.others.MoreThanOneUpdateException
 import com.lopreti.university.domain.exception.others.NoValidFieldException;
 import com.lopreti.university.domain.exception.others.ValueCannotBeEmptyException;
 import com.lopreti.university.domain.exception.others.WithoutFieldUpdateException;
+import com.lopreti.university.domain.exception.people.PeopleCategoryNotFoundException;
+import com.lopreti.university.domain.exception.people.PeopleNotFoundException;
+import com.lopreti.university.domain.exception.people.PeopleUserExistsException;
 import com.lopreti.university.domain.exception.student.StudentAlreadyExistsException;
 import com.lopreti.university.domain.exception.student.StudentNotFoundException;
 import com.lopreti.university.domain.exception.subject.SubjectAlreadyExistsException;
 import com.lopreti.university.domain.exception.subject.SubjectNotFoundException;
 import com.lopreti.university.domain.exception.teacher.TeacherAlreadyExistsException;
 import com.lopreti.university.domain.exception.teacher.TeacherNotFoundException;
+import com.lopreti.university.domain.exception.user.UserAddressExistsException;
+import com.lopreti.university.domain.exception.user.UserIsRequiredException;
 import com.lopreti.university.domain.exception.user.UserNotFoundException;
 import com.lopreti.university.domain.exception.user.UserStatusNotFoundException;
 import com.lopreti.university.domain.exception.user.email.EmailAlreadyExistsException;
 import com.lopreti.university.domain.exception.user.email.EmailInvalidFormatException;
-import com.lopreti.university.domain.exception.people.PeopleCategoryNotFoundException;
-import com.lopreti.university.domain.exception.people.PeopleNotFoundException;
-import com.lopreti.university.domain.exception.people.PeopleUserExistsException;
-import com.lopreti.university.domain.exception.user.UserAddressExistsException;
-import com.lopreti.university.domain.exception.user.UserIsRequiredException;
 import com.lopreti.university.domain.exception.user.password.PasswordInvalidFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,5 +199,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDto> handlePeopleUserExistsException(PeopleUserExistsException ex) {
         return new ResponseEntity<>(new ErrorResponseDto(ex.getCode(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+//    public ResponseEntity<ErrorResponseDto> handleMethodArgumentTypeMismatchException() {
+//        return new ResponseEntity<>(new ErrorResponseDto("XXX", "XXX"), HttpStatus.OK);
+//    }
 
 }

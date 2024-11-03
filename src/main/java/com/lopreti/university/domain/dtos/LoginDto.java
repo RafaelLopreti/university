@@ -1,6 +1,6 @@
 package com.lopreti.university.domain.dtos;
 
-public class LoginRequest {
+public class LoginDto {
     private String email;
     private String password;
 
@@ -12,7 +12,7 @@ public class LoginRequest {
         return password;
     }
 
-    public LoginRequest() {
+    public LoginDto() {
     }
 
     public void setEmail(String email) {

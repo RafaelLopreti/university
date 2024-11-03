@@ -13,7 +13,51 @@
 					"name": "Home",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}:8080",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "8080"
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"rafael.lopreti@gmail.com\",\n    \"password\":\"Abc@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}:8080/api/v1/university/login",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"university",
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
@@ -25,13 +69,28 @@
 				{
 					"name": "All",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/students",
+							"raw": "http://{{host}}:8080/api/v1/university/students",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -62,10 +121,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/students/1",
+							"raw": "http://{{host}}:8080/api/v1/university/students/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -85,10 +144,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/students-class/UNI-001",
+							"raw": "http://{{host}}:8080/api/v1/university/students-class/UNI-001",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -117,10 +176,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/students",
+							"raw": "http://{{host}}:8080/api/v1/university/students",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -148,10 +207,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/students/1",
+							"raw": "http://{{host}}:8080/api/v1/university/students/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -171,10 +230,10 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/students/1/UNI-002",
+							"raw": "http://{{host}}:8080/api/v1/university/students/1/UNI-002",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -200,10 +259,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers",
+							"raw": "http://{{host}}:8080/api/v1/university/teachers",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -234,10 +293,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers/1",
+							"raw": "http://{{host}}:8080/api/v1/university/teachers/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -257,10 +316,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers-class/UNI-000",
+							"raw": "http://{{host}}:8080/api/v1/university/teachers-class/UNI-000",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -289,10 +348,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers",
+							"raw": "http://{{host}}:8080/api/v1/university/teachers",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -320,10 +379,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers/1",
+							"raw": "http://{{host}}:8080/api/v1/university/teachers/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -343,10 +402,10 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers/1/UNI-000",
+							"raw": "http://{{host}}:8080/api/v1/university/teachers/1/UNI-000",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -372,17 +431,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"university",
-								"teachers"
+								"peoples"
 							]
 						}
 					},
@@ -406,17 +465,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/teachers/1",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"university",
-								"teachers",
+								"peoples",
 								"1"
 							]
 						}
@@ -429,10 +488,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples-name/UNI-000",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples-name/UNI-000",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -452,10 +511,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples-registry/UNI-000",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples-registry/UNI-000",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -475,10 +534,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples-registry/UNI-000",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples-registry/UNI-000",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -498,10 +557,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples-registry/UNI-000",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples-registry/UNI-000",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -521,10 +580,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples-registry/UNI-000",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples-registry/UNI-000",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -545,7 +604,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user\":3,\r\n    \"name\":\"Allan Rafael Costa\",\r\n    \"taxpayerRegistry\":\"111.222.333-46\",\r\n    \"address\":3,\r\n    \"category\":\"VISITANT\"\r\n}",
+							"raw": "{\r\n    \"user\":2,\r\n    \"name\":\"Allan Lopreti\",\r\n    \"taxpayerRegistry\":\"111.222.333-46\",\r\n    \"address\":2,\r\n    \"category\":\"VISITANT\",\r\n    \"profileImage\":\"https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -553,10 +612,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -576,7 +635,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user\":2,\r\n    \"name\":\"Allan Rafael Costa\",\r\n    \"taxpayerRegistry\":\"111.222.333-46\",\r\n    \"address\":2,\r\n    \"category\":\"VISITANT\"\r\n}",
+							"raw": "{\r\n    \"user\":2,\r\n    \"name\":\"Allan Lopreti\",\r\n    \"taxpayerRegistry\":\"111.222.333-46\",\r\n    \"address\":2,\r\n    \"category\":\"VISITANT\",\r\n    \"profileImage\":\"https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -584,10 +643,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples/1",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -607,10 +666,10 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/peoples/2?user=1",
+							"raw": "http://{{host}}:8080/api/v1/university/peoples/2?user=1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -649,6 +708,11 @@
 								{
 									"key": "user",
 									"value": "1"
+								},
+								{
+									"key": "profileImage",
+									"value": "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg",
+									"disabled": true
 								}
 							]
 						}
@@ -666,10 +730,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/courses",
+							"raw": "http://{{host}}:8080/api/v1/university/courses",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -700,10 +764,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/courses/1",
+							"raw": "http://{{host}}:8080/api/v1/university/courses/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -723,10 +787,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/courses-name/Ciencia%20da%20Computacao",
+							"raw": "http://{{host}}:8080/api/v1/university/courses-name/Ciencia%20da%20Computacao",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -746,10 +810,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/courses-period/AFTERNOON",
+							"raw": "http://{{host}}:8080/api/v1/university/courses-period/AFTERNOON",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -778,10 +842,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/courses",
+							"raw": "http://{{host}}:8080/api/v1/university/courses",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -809,10 +873,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/courses/1",
+							"raw": "http://{{host}}:8080/api/v1/university/courses/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -832,10 +896,10 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/courses/1?period=night",
+							"raw": "http://{{host}}:8080/api/v1/university/courses/1?period=night",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -871,10 +935,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes",
+							"raw": "http://{{host}}:8080/api/v1/university/classes",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -905,10 +969,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes/1",
+							"raw": "http://{{host}}:8080/api/v1/university/classes/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -928,10 +992,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes-code/Ciencia%20da%20Computacao",
+							"raw": "http://{{host}}:8080/api/v1/university/classes-code/Ciencia%20da%20Computacao",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -952,7 +1016,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"code\": \"UNI-001\",\r\n   \"peopleList\": [],\r\n   \"subjectsList\": []\r\n}",
+							"raw": "{\r\n   \"code\": \"UNI-002\",\r\n   \"peopleList\": [],\r\n   \"subjectsList\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -960,10 +1024,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes",
+							"raw": "http://{{host}}:8080/api/v1/university/classes",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -991,10 +1055,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes/1",
+							"raw": "http://{{host}}:8080/api/v1/university/classes/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1023,10 +1087,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes-code/UNI-001?code=UNI-002",
+							"raw": "http://{{host}}:8080/api/v1/university/classes-code/UNI-001?code=UNI-002",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1061,10 +1125,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes/UNI-001/updatePeopleList",
+							"raw": "http://{{host}}:8080/api/v1/university/classes/UNI-001/updatePeopleList",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1094,10 +1158,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/classes/UNI-001/updateSubjectsList",
+							"raw": "http://{{host}}:8080/api/v1/university/classes/UNI-001/updateSubjectsList",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1123,10 +1187,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/subjects",
+							"raw": "http://{{host}}:8080/api/v1/university/subjects",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1157,10 +1221,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/subjects/1",
+							"raw": "http://{{host}}:8080/api/v1/university/subjects/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1180,10 +1244,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/subjects-name/Ciencia",
+							"raw": "http://{{host}}:8080/api/v1/university/subjects-name/Ciencia",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1212,10 +1276,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/subjects",
+							"raw": "http://{{host}}:8080/api/v1/university/subjects",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1243,10 +1307,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/subjects/1",
+							"raw": "http://{{host}}:8080/api/v1/university/subjects/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1275,10 +1339,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/subjects/1/CienciasUpdate",
+							"raw": "http://{{host}}:8080/api/v1/university/subjects/1/CienciasUpdate",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1308,10 +1372,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/subjects/1/updateTeacherList",
+							"raw": "http://{{host}}:8080/api/v1/university/subjects/1/updateTeacherList",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1337,10 +1401,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses",
+							"raw": "http://{{host}}:8080/api/v1/university/addresses",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1359,10 +1423,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses/1",
+							"raw": "http://{{host}}:8080/api/v1/university/addresses/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1394,10 +1458,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses-by?street=Default Street&number=123&user=1",
+							"raw": "http://{{host}}:8080/api/v1/university/addresses-by?street=Default Street&number=123&user=1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1459,10 +1523,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses",
+							"raw": "http://{{host}}:8080/api/v1/university/addresses",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1490,10 +1554,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses/1",
+							"raw": "http://{{host}}:8080/api/v1/university/addresses/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1513,10 +1577,10 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses/1?user=3",
+							"raw": "http://{{host}}:8080/api/v1/university/addresses/1?user=3",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1582,17 +1646,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses",
+							"raw": "http://{{host}}:8080/api/v1/university/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"university",
-								"addresses"
+								"users"
 							]
 						}
 					},
@@ -1604,17 +1668,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/addresses/1",
+							"raw": "http://{{host}}:8080/api/v1/university/users/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"university",
-								"addresses",
+								"users",
 								"1"
 							]
 						}
@@ -1639,10 +1703,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/users-email/rafael.lopreti@gmail.com",
+							"raw": "http://{{host}}:8080/api/v1/university/users-email/rafael.lopreti@gmail.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1657,44 +1721,16 @@
 					"response": []
 				},
 				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rafael.lopreti@gmail.com\",\r\n    \"password\": \"Abc@1234\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/university/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"university",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Save",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"tem@email.com\",\r\n    \"password\":\"Abc@1234\",\r\n    \"status\":\"ACTIVE\"\r\n}",
+							"raw": "{\r\n    \"email\":\"tem@email.com\",\r\n    \"password\":\"Abc@1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1702,10 +1738,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/users",
+							"raw": "http://{{host}}:8080/api/v1/university/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1733,10 +1769,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/users/1",
+							"raw": "http://{{host}}:8080/api/v1/university/users/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
@@ -1756,10 +1792,10 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/university/users/1",
+							"raw": "http://{{host}}:8080/api/v1/university/users/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
 							"port": "8080",
 							"path": [
