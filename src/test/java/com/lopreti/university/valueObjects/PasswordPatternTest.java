@@ -1,21 +1,22 @@
 package com.lopreti.university.valueObjects;
 
+import com.lopreti.university.domain.services.UserService;
 import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
+import static com.lopreti.university.domain.services.UserService.VALID_PASSWORD_REGEX;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PasswordPatternTest {
-
-    private static final Pattern VALID_PASSWORD_REGEX =
-            Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=()\\-])(?=\\S+$).{8,20}$");
-
+    
     @Test
     public void testValidPasswords() {
         assertTrue(VALID_PASSWORD_REGEX.matcher("Abc@1234").matches());
         assertTrue(VALID_PASSWORD_REGEX.matcher("P@ssw0rd").matches());
+        assertTrue(VALID_PASSWORD_REGEX.matcher("Ajc*3254").matches());
+        assertTrue(VALID_PASSWORD_REGEX.matcher("Ilda_8892").matches());
     }
 
     @Test
